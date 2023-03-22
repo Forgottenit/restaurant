@@ -1,0 +1,11 @@
+.accordion-body {
+    font-size: large;
+    text-align: center;
+}
+
+.accordion-button {
+    display: block;
+    text-align: center;
+    background-color: rgb(215, 176, 251);
+    font-size: large;
+}
