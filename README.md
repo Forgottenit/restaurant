@@ -68,7 +68,7 @@
 - Login to Cloudinary
 - On the Dashboard under API Environment variable, copy the CLOUDINARY_URL (copy from after the "=" symbol) 
 ### Link Databases and Hide KEYS
-- Create an env.py in the top-level directory (This is for the SECRET_KEY in Django and also the DATABASE_URL)
+- Create an env.py in the top-level directory (This is for the SECRET_KEY in Django and also the URL's for ElephantSQL and Cloudinary, so they are not pushed to Git and visible to others)
 - At the top of the env.py file import os
 - Create Environment Variables for DATABASE_URL(ElephantSQL URL), SECRET_KEY(Django Secret Key) and CLOUDINARY_URL (Cloudinary URL)
 - Set these equal to their corresponding values with - os.environ["VARIABLE_NAME"] = "Corresponding Variable"
@@ -77,6 +77,8 @@
 - In Heroku Config VARS add PORT = 8000
 
 ### Settings.py Setup
+- Before Deployment make sure Debug = False as if not, secret information could be displayed to users 
+  unwittingly
 - In settings.py import os, import dj_database_url and import env
     - import os
       import dj_database_url
@@ -142,6 +144,16 @@
     - git add .
       git commit -m “Commit Comment”
       git push
+
+### Heroku Deployment
+- In Heroku, on the app go to the Deploy section
+- Click GitHub  in the "Deployment method" section
+- Under the "Connect to GitHub" section, type in the repository name in the "repo-name" field then click 
+  "Search"
+- Once your repository name comes up underneath, click "Connect"
+- Scroll down to the Manual deploy section and click "Deploy Branch"
+- Then at the top of the page click "Open app"
+
 
 
 
