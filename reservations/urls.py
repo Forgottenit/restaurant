@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import reservations
+from . import views
 
 urlpatterns = [
-    path('reservations/', reservations, name='reservations'),
+    path('reservations/', views.reservations, name='reservations'),
 ]

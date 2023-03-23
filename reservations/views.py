@@ -1,7 +1,10 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .models import Reservation
+from .forms import ContactForm
 
 
 def reservations(request):
-    booking = Reservation.objects.all()
-    return render(request, 'reservations.html', {'booking': booking})
+   form = ContactForm(request.POST)
+   return render(request, 'reservations.html', {'form': form})
+    
