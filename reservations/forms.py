@@ -5,4 +5,4 @@ class ContactForm(forms.Form):
     email = forms.EmailField()
     date = forms.DateField()
     time = forms.TimeField()
-    party_size = forms.IntegerField()
+    party_size = forms.IntegerField(max_value=6, min_value=1)

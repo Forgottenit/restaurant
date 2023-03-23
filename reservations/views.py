@@ -1,6 +1,4 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from .models import Reservation
 from .forms import ContactForm
 
 
