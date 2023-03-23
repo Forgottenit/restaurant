@@ -1,3 +1,7 @@
 from django.shortcuts import render
+from .models import Reservation
 
-# Create your views here.
+
+def reservations(request):
+    booking = Reservation.objects.all()
+    return render(request, 'reservations.html', {'booking': booking})
