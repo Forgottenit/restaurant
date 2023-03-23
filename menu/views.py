@@ -2,6 +2,6 @@ from django.shortcuts import render
 from .models import MenuItem
 
 
-def index(request):
+def menu(request):
     items = MenuItem.objects.all()
-    return render(request, 'index.html', {'items': items})
+    return render(request, 'menu.html', {'items': items})

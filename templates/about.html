@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{%block content%}
+<div id="about" class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <h2>About Us</h2>
+                <p class="lead mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel velit in justo
+                    bibendum auctor. Suspendisse potenti.</p>
+                <p>Phasellus id elit vel nulla tempus sodales. Nulla facilisi. Sed ut quam ac magna aliquam rutrum.
+                    Donec consequat est quis lacus venenatis, a luctus enim tempor. Duis bibendum sem eu arcu feugiat,
+                    eget ultricies nunc pharetra.</p>
+                <a href="#" class="btn btn-outline-primary btn-lg mt-4">Learn More</a>
+            </div>
+            <div class="col-md-6">
+                <div class="position-relative">
+                    <img src="{% static 'images/myimage.jpg' %}" alt="Restaurant" class="img-fluid rounded shadow-lg">
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <h3 class="text-white text-shadow mb-0">Experience<br>Our<br>Cuisine</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

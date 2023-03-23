@@ -9,3 +9,11 @@
     background-color: rgb(215, 176, 251);
     font-size: large;
 }
+
+.form {
+    font-size: x-large;
+    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}

@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     path('reservations/', views.reservations, name='reservations'),
+   
 ]
