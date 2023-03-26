@@ -10,7 +10,7 @@ class Reservation(models.Model):
         (CONFIRMED, 'Confirmed'),
         # (CANCELLED, 'Cancelled'),
     ]
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100) 
     email = models.EmailField()
     date = models.DateField()
     time = models.TimeField()

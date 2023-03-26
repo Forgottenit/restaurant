@@ -159,10 +159,21 @@
 - Scroll down to the Manual deploy section and click "Deploy Branch"
 - Then at the top of the page click "Open app"
 
+## Crispy Forms
+- pip install django-crispy-forms
 
+- Add to settings.py:
+    - INSTALLED_APPS = [
+    ...
+    'crispy_forms',
+    'crispy_bootstrap5',
+    '...
+]   
+   -  Add TEMPLATE packs:
+      CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+      CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-
-
+- Insert {% load crispy_forms_tags %} at top of HTML page
 
 
 
