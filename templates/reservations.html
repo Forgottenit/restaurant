@@ -3,7 +3,7 @@
 {% block content %}
 <h1>reservations</h1>
 <div class="form">
-    <form action="/" method="post">
+    <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Submit">

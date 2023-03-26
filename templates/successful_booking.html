@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Congratulations</h1>
+<p>Name: {{ latest_booking.name }}</p>
+<p>Email: {{ latest_booking.email }}</p>
+<p>Date: {{ latest_booking.date }}</p>
+<p>Time: {{ latest_booking.time }}</p>
+<p>Party Size: {{ latest_booking.party_size }}</p>
+{%endblock%}

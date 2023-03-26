@@ -1,8 +1,8 @@
 from django import forms
+from .models import Reservation
 
-class ContactForm(forms.Form):
-    name = forms.CharField(max_length=100)
-    email = forms.EmailField()
-    date = forms.DateField()
-    time = forms.TimeField()
-    party_size = forms.IntegerField(max_value=6, min_value=1)
+class BookingForm(forms.ModelForm):
+    class Meta:
+        model = Reservation
+        fields = ['name', 'email', 'date', 'time', 'party_size']
+

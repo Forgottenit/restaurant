@@ -9,4 +9,3 @@ class Reservation(models.Model):
 
     def __str__(self):
         return f'Bookings are {self.name} {self.email} - {self.date} {self.time} {self.party_size}'
-
