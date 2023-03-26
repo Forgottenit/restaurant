@@ -18,6 +18,7 @@ class Reservation(models.Model):
     party_size = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(6)])
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=PENDING)
+    created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'Bookings are {self.name} {self.email} - {self.date} {self.time} {self.party_size}'
