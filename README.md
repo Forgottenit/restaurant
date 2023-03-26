@@ -20,6 +20,11 @@
 - Used min max numbers on forms party size so that users can not select unser 1 or over 6, this is also on the models validator but it adds an ease of use to the user having arrows to select party size
 
 ## Initial Setup
+
+For this Project a Template provided by CodeInstitute was used -[Template](https://github.com/Code-Institute-Org/gitpod-full-template)
+
+- Click "Use this Template" then "Create a new repository"
+- Give the repository a name then click "Create repository from template"
 ### DJANGO AND LIBRARIES
 - Install Django and Libraries:
  - pip3 install 'django<4' gunicorn (This installs the LTS (Long Term Support) version of Django and is therefore preferable to use over a beta version)
@@ -80,6 +85,19 @@
 - Do the same in Config Vars on Heroku, so the config vars on Heroku should be DATABASE_URL, SECRET_KEY, CLOUDINARY_URL
 - Add DISABLE_COLLECTSTATIC = 1 on HEROKU also, for the development period, this is removed at project completion.
 - In Heroku Config VARS add PORT = 8000
+- Check .gitignore 
+    - add *.sqlite3 to hide your database
+
+    -   core.Microsoft*
+        core.mongo*
+        core.python*
+        env.py
+        __pycache__/
+        *.py[cod]
+        node_modules/
+        .github/
+        cloudinary_python.txt
+        *.sqlite3
 
 ### Settings.py Setup
 - Before Deployment make sure Debug = False as if not, secret information could be displayed to users 
