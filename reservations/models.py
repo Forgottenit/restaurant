@@ -14,7 +14,7 @@ class Reservation(models.Model):
     email = models.EmailField()
     date = models.DateField()
     time = models.TimeField()
-    special_requests = models.TextField()
+    special_requests = models.TextField(blank=True)
     party_size = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(6)])
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=PENDING)
