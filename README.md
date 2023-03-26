@@ -14,6 +14,11 @@
 
 ## Design
 
+### Models
+
+### Forms
+- Used min max numbers on forms party size so that users can not select unser 1 or over 6, this is also on the models validator but it adds an ease of use to the user having arrows to select party size
+
 ## Initial Setup
 ### DJANGO AND LIBRARIES
 - Install Django and Libraries:
