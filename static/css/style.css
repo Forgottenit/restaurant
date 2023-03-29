@@ -1,3 +1,4 @@
+/* ACCORDION CSS STYLING */
 .accordion-body {
     font-size: large;
     text-align: center;
@@ -10,6 +11,7 @@
     font-size: large;
 }
 
+/* FORM CSS STYLING */
 .form {
     font-size: x-large;
     background-color: aquamarine;
@@ -25,7 +27,6 @@
     text-align: center;
 }
 
-
 .signup-link {
     display: block;
     justify-content: center;
@@ -35,4 +36,39 @@
 
 #login-btn {
     margin: 2rem 0;
+}
+
+/* NAVBAR CSS STYLING */
+header {
+    background-color: #212529;
+}
+
+.navbar-brand {
+    color: #f8f9fa !important;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    color: #f8f9fa !important;
+    font-size: 18px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffc107 !important;
+    font-size: 20px;
+}
+
+.active {
+    font-weight: bold;
+    font-size: 20px !important;
+}
+
+
+/* Test CSS */
+
+.image-one {
+
+    height: 100px;
+    width: 30%;
 }
