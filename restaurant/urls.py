@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("menu.urls"), name="menu_urls"),
     path("", include("reservations.urls"), name="reservations_urls"),
-    path("", include("customers.urls"), name="customers_urls")
+    path("", include("customers.urls"), name="customers_urls"),
+    path("", include("login.urls"), name="signup_urls")
 ]
