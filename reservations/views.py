@@ -31,5 +31,4 @@ def delete_reservation(request, reservation_id):
     if reservation.user != request.user:
         return HttpResponseForbidden()
     reservation.delete()
-    # Send an email to the user about the cancellation here (see step 2)
     return redirect('user_reservations')
