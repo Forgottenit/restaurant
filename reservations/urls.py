@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('reservations/', views.reservations, name='reservations'),
-    path('success/', views.success, name='success'),  # add a new path for the success URL
+    path('user_reservations/', views.user_reservations, name='user_reservations'),
+    path('delete_reservation/<int:reservation_id>/', views.delete_reservation, name='delete_reservation'),
    
 ]

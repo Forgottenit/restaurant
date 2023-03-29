@@ -1,11 +1,38 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<h1>Congratulations</h1>
-<p>Booking Created: {{latest_booking.created_on}}</p>
-<p>Name: {{ latest_booking.name }}</p>
-<p>Email: {{ latest_booking.email }}</p>
-<p>Date: {{ latest_booking.date }}</p>
-<p>Time: {{ latest_booking.time }}</p>
-<p>Party Size: {{ latest_booking.party_size }}</p>
-{%endblock%}
+<h2>Your Reservations</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Party Size</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reservation in reservations %}
+        <tr>
+            <td>{{ reservation.name }}</td>
+            <td>{{ reservation.email }}</td>
+            <td>{{ reservation.date }}</td>
+            <td>{{ reservation.time }}</td>
+            <td>{{ reservation.party_size }}</td>
+            <td>{{ reservation.status }}</td>
+            <td>
+                <!-- Add edit and delete reservation links here -->
+                <a href="{% url 'delete_reservation' reservation_id=reservation.id %}">Delete Reservation</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">You have no reservations.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
