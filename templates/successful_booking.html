@@ -33,6 +33,7 @@
                     <!-- Add edit and delete reservation links here -->
                     <a href="{% url 'edit_reservation' reservation_id=reservation.id %}" class="btn btn-primary">Edit
                         Reservation</a>
+
                     <a href="#" data-reservation-id="{{ reservation.id }}"
                         data-delete-url="{% url 'delete_reservation' reservation_id=reservation.id %}"
                         class="btn btn-danger cancel-reservation-btn">Delete Reservation</a>
