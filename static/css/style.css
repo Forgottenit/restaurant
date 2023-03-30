@@ -11,14 +11,8 @@
     font-size: large;
 }
 
-/* FORM CSS STYLING */
-.form {
-    font-size: x-large;
-    background-color: aquamarine;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-}
+/* SIGN UP/ LOGIN CSS STYLING */
+
 
 .signup,
 .login {
@@ -37,6 +31,21 @@
 #login-btn {
     margin: 2rem 0;
 }
+
+/* RESERVATION FORM STYLING */
+.btn-radio {
+    width: 30%;
+    white-space: nowrap;
+}
+
+.btn-outline-primary.btn-radio input[type="radio"]:checked~label,
+.btn-outline-primary.btn-radio input[type="radio"]:active~label,
+.btn-outline-primary.btn-radio input[type="radio"]:focus~label {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+}
+
 
 /* NAVBAR CSS STYLING */
 header {
@@ -59,16 +68,75 @@ header {
     font-size: 20px;
 }
 
-.active {
+.navbar-nav .active {
     font-weight: bold;
     font-size: 20px !important;
 }
 
+/* SUCCESSFUL BOOKING CSS */
+.btn-responsive {
+    font-size: 16px;
+    padding: 8px 16px !important;
+}
 
-/* Test CSS */
+/* MEDIA QUERIES CSS */
 
-.image-one {
+@media (max-width: 999px) {
+    .vertical-table thead {
+        display: none;
+    }
 
-    height: 100px;
-    width: 30%;
+    .vertical-table tr {
+        display: block;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .vertical-table td {
+        display: block;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        padding: 5px;
+        text-align: right;
+    }
+
+    .vertical-table td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        padding-right: 10px;
+        text-align: left;
+    }
+
+    .vertical-table td:last-child {
+        border-bottom: none;
+    }
+
+}
+
+
+/* SMALL SCREEN */
+@media (max-width: 575.98px) {
+    .btn-responsive {
+        font-size: 12px;
+        padding: 5px 10px !important;
+    }
+}
+
+/* MEDIUM SCREEN */
+@media (min-width: 578px) and (max-width: 999px) {
+    .btn-responsive {
+        font-size: 12px;
+        padding: 6px 2px !important;
+        line-height: 1.5;
+
+    }
+}
+
+/* LARGE SCREEN */
+@media (min-width: 999px) {
+    .btn-responsive {
+        font-size: 16px;
+        padding: 8px 16px !important;
+    }
 }

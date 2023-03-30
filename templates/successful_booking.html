@@ -4,49 +4,56 @@
 {% include 'cancel_reservation_modal.html' %}
 <div class="container mt-5">
     <h2>Your Reservations</h2>
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Party Size</th>
-                <th>Special Requests</th>
-                <th>Status</th>
-                <th>Created On</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for reservation in reservations %}
-            <tr>
-                <td>{{ reservation.name }}</td>
-                <td>{{ reservation.email }}</td>
-                <td>{{ reservation.date }}</td>
-                <td>{{ reservation.time }}</td>
-                <td>{{ reservation.party_size }}</td>
-                <td>{{ reservation.special_requests }}</td>
-                <td>{{ reservation.status }}</td>
-                <td>{{ reservation.created_on }}</td>
-                <td>
-                    <!-- Add edit and delete reservation links here -->
-                    <a href="{% url 'edit_reservation' reservation_id=reservation.id %}" class="btn btn-primary">Edit
-                        Reservation</a>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered vertical-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Party Size</th>
+                    <th>Special Requests</th>
+                    <th>Status</th>
+                    <th>Created On</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservations %}
+                <tr>
+                    <td data-label="Name">{{ reservation.name }}</td>
+                    <td data-label="Email">{{ reservation.email }}</td>
+                    <td data-label="Date">{{ reservation.date }}</td>
+                    <td data-label="Time">{{ reservation.time }}</td>
+                    <td data-label="Party Size">{{ reservation.party_size }}</td>
+                    <td data-label="Special Requests">{{ reservation.special_requests }}</td>
+                    <td data-label="Status">{{ reservation.status }}</td>
+                    <td data-label="Created On">{{ reservation.created_on }}</td>
+                    <td data-label="Actions">
+                        <!-- Add edit and delete reservation links here -->
+                        <div class="btn-group d-flex">
+                            <a href="{% url 'edit_reservation' reservation_id=reservation.id %}"
+                                class="btn btn-primary flex-grow-1 btn-responsive">
+                                Edit Reservation
+                            </a>
 
-                    <a href="#" data-reservation-id="{{ reservation.id }}"
-                        data-delete-url="{% url 'delete_reservation' reservation_id=reservation.id %}"
-                        class="btn btn-danger cancel-reservation-btn">Delete Reservation</a>
-
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="9">You have no reservations.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                            <a href="#" data-reservation-id="{{ reservation.id }}"
+                                data-delete-url="{% url 'delete_reservation' reservation_id=reservation.id %}"
+                                class="btn btn-danger flex-grow-1 btn-responsive cancel-reservation-btn">
+                                Delete Reservation
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9">You have no reservations.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 {% endblock %}
