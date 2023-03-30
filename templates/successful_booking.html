@@ -30,7 +30,13 @@
                 <td>{{ reservation.created_on }}</td>
                 <td>
                     <!-- Add edit and delete reservation links here -->
-                    <a href="{% url 'delete_reservation' reservation_id=reservation.id %}">Delete Reservation</a>
+                    <a href="{% url 'edit_reservation' reservation_id=reservation.id %}" class="btn btn-primary">Edit
+                        Reservation</a>
+                    <a href="{% url 'delete_reservation' reservation_id=reservation.id %}"
+                        onclick="return confirm('Are you sure you want to cancel this reservation?');"
+                        class="btn btn-danger">Delete
+                        Reservation</a>
+
                 </td>
             </tr>
             {% empty %}

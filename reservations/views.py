@@ -21,14 +21,33 @@ def reservations(request):
         form = BookingForm()
     return render(request, 'reservations.html', {'form': form})
 
+
 @login_required
 def user_reservations(request):
     reservations = Reservation.objects.filter(user=request.user)
     return render(request, 'successful_booking.html', {'reservations': reservations})
 
+
+@login_required
 def delete_reservation(request, reservation_id):
     reservation = get_object_or_404(Reservation, id=reservation_id)
     if reservation.user != request.user:
         return HttpResponseForbidden()
     reservation.delete()
     return redirect('user_reservations')
+
+
+@login_required
+def edit_reservation(request, reservation_id):
+    reservation = get_object_or_404(Reservation, id=reservation_id)
+    if reservation.user != request.user:
+        return HttpResponseForbidden()
+
+    form = BookingForm(instance=reservation)  # define form here
+
+    if request.method == 'POST':
+        form = BookingForm(request.POST, instance=reservation)
+        if form.is_valid():
+            form.save()
+            return redirect('user_reservations')
+    return render(request, 'edit_reservation.html', {'form': form})
