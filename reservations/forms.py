@@ -1,13 +1,22 @@
 from django import forms
 from .models import Reservation
-from django.forms.widgets import DateInput
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Submit
+from django.forms.widgets import DateInput, RadioSelect
+from django.core.exceptions import ValidationError
+from datetime import datetime
+
+
+# Check todays date and time 
+class FutureDateField(forms.DateField):
+    def validate(self, value):
+        super().validate(value)
+        now = datetime.now().date()
+        if value < now:
+            raise ValidationError("Booking date cannot be in the past.")
+
 
 class BookingForm(forms.ModelForm):
-    # YEAR_CHOICES = ['2022', '2023'] add two year booking window
-    # MONTH_CHOICES = ['April', 'May', 'June'] add only future dates selectable
     TIME_CHOICES = (
+        ('13:00', '1:00 PM'),
         ('17:00', '5:00 PM'),
         ('17:15', '5:15 PM'),
         ('17:30', '5:30 PM'),
@@ -30,15 +39,23 @@ class BookingForm(forms.ModelForm):
         ('21:45', '9:45 PM'),
         ('22:00', '10:00 PM'),
     )
-    time = forms.ChoiceField(choices=TIME_CHOICES, widget=forms.RadioSelect)
-    # party_size = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
-    
+
     party_size = forms.IntegerField(min_value=1, max_value=6)
-    # date = forms.DateField(widget=forms.SelectDateWidget( years=YEAR_CHOICES))
-    date = forms.DateField(widget=DateInput(attrs={'type': 'date'}))
-    # time = forms.ChoiceField(label='Time', choices=[(f'{hour:02d}:{minute:02d}', f'{hour:02d}:{minute:02d}') for hour in range(17, 22) for minute in range(0, 60, 15)])
-    # time = forms.ChoiceField(label='Time', choices=[(f'{hour:02d}:{minute:02d}', f'{hour:02d}:{minute:02d}') for hour in range(17, 22) for minute in range(0, 60, 15)], widget=forms.Select(attrs={'class': 'form-select'})) With CSS STYLING
+    date = FutureDateField(widget=DateInput(attrs={'type': 'date'}))
+    time = forms.ChoiceField(choices=TIME_CHOICES, widget=RadioSelect)
+
     class Meta:
         model = Reservation
         fields = ['name', 'email', 'date', 'time', 'special_requests', 'party_size']
 
+    def clean(self):
+        cleaned_data = super().clean()
+        date = cleaned_data.get('date')
+        time = cleaned_data.get('time')
+
+        if date and time:
+            now = datetime.now()
+            input_datetime = datetime.combine(date, datetime.strptime(time, "%H:%M").time())
+
+            if input_datetime < now:
+                self.add_error('time', ValidationError("Booking time cannot be in the past."))

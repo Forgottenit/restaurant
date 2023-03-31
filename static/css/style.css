@@ -46,6 +46,12 @@
     color: #fff;
 }
 
+.error-msg {
+    font-size: .875em;
+    color: #dc3545;
+    font-weight: bold;
+
+}
 
 /* NAVBAR CSS STYLING */
 header {

@@ -14,6 +14,11 @@
 
 ## Design
 
+
+### Reservation Form
+
+- Radio Tags, targeted by Javascript to stay coloured when selected
+- Custom error message using "inspect" to match Validation error if time selected is on the day of booking but earlier than the current time. Tested by adding time to Time_choices and ensuring error displayed.
 ### Models
 
 ### Forms
