@@ -2,11 +2,43 @@ from django import forms
 from .models import Reservation
 from django.forms.widgets import DateInput, RadioSelect
 from django.core.exceptions import ValidationError
-from datetime import datetime
+from datetime import date, datetime, time, timedelta
+from django.utils import timezone
+
+# Capacity of Restaurant set at 50 and Each Booking to last one hour
+MAX_CAPACITY = 50
+BOOKING_DURATION = timedelta(hours=1)
 
 
-# Check todays date and time 
-class FutureDateField(forms.DateField):
+# Function to display time options for bookings
+def time_choices(start_hour, end_hour, interval_minutes):
+    choices = []
+    current_time = time(hour=start_hour)
+    end_time = time(hour=end_hour)
+
+    while current_time <= end_time:
+        formatted_time = current_time.strftime('%H:%M')
+        formatted_time_display = current_time.strftime('%-I:%M %p')
+        choices.append((formatted_time, formatted_time_display))
+        current_time = (datetime.combine(date.today(), current_time)
+                        + timedelta(minutes=interval_minutes)).time()
+
+    return choices
+
+
+"""
+Possibility to add or Change opening hours (Format is 24hrs, with opening hr,
+closing hr and intervals of availability)
+"""
+DINNER_TIME_CHOICES = time_choices(17, 22, 15)
+
+
+class CheckDateValid(forms.DateField):
+
+    """
+    Check todays date and display validation error
+    if booking attempt is in the past
+    """
     def validate(self, value):
         super().validate(value)
         now = datetime.now().date()
@@ -15,47 +47,94 @@ class FutureDateField(forms.DateField):
 
 
 class BookingForm(forms.ModelForm):
-    TIME_CHOICES = (
-        ('13:00', '1:00 PM'),
-        ('17:00', '5:00 PM'),
-        ('17:15', '5:15 PM'),
-        ('17:30', '5:30 PM'),
-        ('17:45', '5:45 PM'),
-        ('18:00', '6:00 PM'),
-        ('18:15', '6:15 PM'),
-        ('18:30', '6:30 PM'),
-        ('18:45', '6:45 PM'),
-        ('19:00', '7:00 PM'),
-        ('19:15', '7:15 PM'),
-        ('19:30', '7:30 PM'),
-        ('19:45', '7:45 PM'),
-        ('20:00', '8:00 PM'),
-        ('20:15', '8:15 PM'),
-        ('20:30', '8:30 PM'),
-        ('20:45', '8:45 PM'),
-        ('21:00', '9:00 PM'),
-        ('21:15', '9:15 PM'),
-        ('21:30', '9:30 PM'),
-        ('21:45', '9:45 PM'),
-        ('22:00', '10:00 PM'),
-    )
 
+    # Max booking capacity for each booking set to 6
     party_size = forms.IntegerField(min_value=1, max_value=6)
-    date = FutureDateField(widget=DateInput(attrs={'type': 'date'}))
-    time = forms.ChoiceField(choices=TIME_CHOICES, widget=RadioSelect)
+    # Call CheckDateValid for booking
+    date = CheckDateValid(widget=DateInput(attrs={'type': 'date'}))
+    # Display time options as DINNER_TIME_CHOICES as Radio buttons
+    time = forms.ChoiceField(choices=DINNER_TIME_CHOICES, widget=RadioSelect)
 
     class Meta:
         model = Reservation
-        fields = ['name', 'email', 'date', 'time', 'special_requests', 'party_size']
+        fields = ['name', 'email', 'date', 'time',
+                  'special_requests', 'party_size']
 
+    """
+    Function to calculate total guests for given reservations at a specific
+    time and at set intervals
+    """
+    def guests_during_booking(self, reservations,
+                              interval_start, interval_end):
+        return sum(
+            reservation.party_size
+            for reservation in reservations
+            if (
+                (
+                    reservation_start := timezone.make_aware(
+                        datetime.combine(self.cleaned_data['date'],
+                                         reservation.time),
+                        timezone.get_current_timezone()
+                    )
+                ) < interval_end
+            )
+            and (reservation_start + BOOKING_DURATION > interval_start)
+        )
+
+    # Main validation function for the form
     def clean(self):
         cleaned_data = super().clean()
         date = cleaned_data.get('date')
         time = cleaned_data.get('time')
 
         if date and time:
-            now = datetime.now()
-            input_datetime = datetime.combine(date, datetime.strptime(time, "%H:%M").time())
+            now = timezone.now()
+            input_datetime = timezone.make_aware(
+                datetime.combine(date, datetime.strptime(time, "%H:%M").time()),
+                timezone.get_current_timezone()
+            )
 
+            # Check that the time of the booking is later than the current time
             if input_datetime < now:
-                self.add_error('time', ValidationError("Booking time cannot be in the past."))
+                self.add_error(
+                    'time',
+                    ValidationError("Booking time cannot be in the past.")
+                )
+
+            reservations = Reservation.objects.filter(date=date)
+            """
+            Exclude the current reservation's party size if editing a booking
+            by checking if it has a primary key
+            """
+            if self.instance.pk is not None:
+                reservations = reservations.exclude(pk=self.instance.pk)
+
+            """
+            Calculate the available capacity from 0 then every 15 minutes of
+            the booking duration. This ensures there is capacity for the whole
+            duration of the booking (1hr or 4 x 15mins)
+            """
+            available_capacity_for_duration = [
+                MAX_CAPACITY - self.guests_during_booking(
+                    reservations,
+                    (interval_start := input_datetime +
+                        timedelta(minutes=15 * i)),
+                    (interval_end := input_datetime +
+                        timedelta(minutes=15 * (i + 1)))
+                )
+                for i in range(4)
+            ]
+
+            if all(capacity >= cleaned_data['party_size']
+                    for capacity in available_capacity_for_duration):
+                return cleaned_data
+            else:
+                """
+                Return Validation error and show availability
+                for the chosen booking time
+                """
+                min_available_capacity = min(available_capacity_for_duration)
+                error_message = f"Booking not available. Maximum available " \
+                                f"capacity at this time is "\
+                                f"{min_available_capacity}."
+                self.add_error('party_size', ValidationError(error_message))
