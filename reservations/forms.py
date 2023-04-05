@@ -30,7 +30,7 @@ def time_choices(start_hour, end_hour, interval_minutes):
 Possibility to add or Change opening hours (Format is 24hrs, with opening hr,
 closing hr and intervals of availability)
 """
-DINNER_TIME_CHOICES = time_choices(17, 22, 15)
+DINNER_TIME_CHOICES = time_choices(13, 22, 15)
 
 
 class CheckDateValid(forms.DateField):
@@ -41,7 +41,7 @@ class CheckDateValid(forms.DateField):
     """
     def validate(self, value):
         super().validate(value)
-        now = datetime.now().date()
+        now = timezone.localtime(timezone.now()).date()
         if value < now:
             raise ValidationError("Booking date cannot be in the past.")
 
@@ -72,14 +72,13 @@ class BookingForm(forms.ModelForm):
             if (
                 (
                     reservation_start := timezone.make_aware(
-                        datetime.combine(self.cleaned_data['date'],
-                                         reservation.time),
-                        timezone.get_current_timezone()
+                            datetime.combine(self.cleaned_data['date'],
+                                             reservation.time),
+                            timezone.get_current_timezone()
+                    )
                     )
                 ) < interval_end
-            )
-            and (reservation_start + BOOKING_DURATION > interval_start)
-        )
+            ) and (reservation_start + BOOKING_DURATION > interval_start)
 
     # Main validation function for the form
     def clean(self):
@@ -88,11 +87,11 @@ class BookingForm(forms.ModelForm):
         time = cleaned_data.get('time')
 
         if date and time:
-            now = timezone.now()
+            now = timezone.localtime(timezone.now())
             input_datetime = timezone.make_aware(
-                datetime.combine(date, datetime.strptime(time, "%H:%M").time()),
-                timezone.get_current_timezone()
-            )
+                                datetime.combine(date, datetime.strptime(time, "%H:%M").time()),
+                                timezone.get_current_timezone()
+                            )
 
             # Check that the time of the booking is later than the current time
             if input_datetime < now:
