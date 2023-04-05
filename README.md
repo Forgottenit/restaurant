@@ -210,6 +210,7 @@ MESSAGE_TAGS = {
         messages.WARNING: 'alert-warning',
         messages.ERROR: 'alert-danger',
     }
+The message div was then targeted to close after 2.5 Seconds using the set Timeout function. 
 - This method was learned from the CodeInstitute classes.
 
 
