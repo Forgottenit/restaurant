@@ -1,7 +1,7 @@
 function showModal(options) {
     // Set the modal elements based on the options
     $('#customModalLabel').text(options.title);
-    $('#customModal .modal-body').text(options.body);
+    $('#customModal .modal-body').html(options.body);
     $('#customModalAction')
         .text(options.actionText)
         .addClass(options.actionClass)
@@ -23,10 +23,24 @@ $(document).ready(function () {
     $('.reservation-form').submit(function (e) {
         e.preventDefault();
         const form = this;
+        const name = $('#id_name').val();
+        const email = $('#id_email').val();
+        const date = $('#id_date').val();
+        const time = $('#id_time').val();
+        const requests = $('#id_special_requests').val();
+        const seats = $('#id_party_size').val();
 
+        const bookingDetails = `
+            Name: ${name}<br>
+            Email: ${email}<br>
+            Date: ${date}<br>
+            Time: ${time}<br>
+            Requests: ${requests}<br>
+            Seats: ${seats}
+        `;
         showModal({
             title: 'Confirm Booking',
-            body: 'Are you sure you want to confirm this booking?',
+            body: bookingDetails,
             actionText: 'Confirm Booking',
             actionClass: 'btn-primary',
             actionCallback: function () {
