@@ -198,8 +198,19 @@ For this Project a Template provided by CodeInstitute was used -[Template](https
 
 - Insert {% load crispy_forms_tags %} at top of HTML page
 
+## Alert Messages
 
-
+- Imported constants as messages to display Login/ Sign up/ Log Out success messages using:
+from django.contrib.messages import constants as messages
+then amending the settings.py to add the message tags and styling:
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-info',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+    }
+- This method was learned from the CodeInstitute classes.
 
 
 
