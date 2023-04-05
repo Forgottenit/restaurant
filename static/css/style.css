@@ -1,3 +1,46 @@
+/* BODY STYLING */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* NAVBAR CSS STYLING */
+header {
+    background-color: #212529;
+}
+
+.navbar-brand {
+    color: #f8f9fa !important;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    color: #f8f9fa !important;
+    font-size: 18px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffc107 !important;
+    font-size: 20px;
+}
+
+.navbar-nav .active {
+    font-weight: bold;
+    font-size: 20px !important;
+}
+
+/* FOOTER STYLING */
+
+.footer {
+    margin-top: auto;
+}
+
 /* ACCORDION CSS STYLING */
 .accordion-body {
     font-size: large;
@@ -53,31 +96,7 @@
 
 }
 
-/* NAVBAR CSS STYLING */
-header {
-    background-color: #212529;
-}
 
-.navbar-brand {
-    color: #f8f9fa !important;
-    font-size: 40px;
-    font-weight: bold;
-}
-
-.navbar-nav .nav-link {
-    color: #f8f9fa !important;
-    font-size: 18px;
-}
-
-.navbar-nav .nav-link:hover {
-    color: #ffc107 !important;
-    font-size: 20px;
-}
-
-.navbar-nav .active {
-    font-weight: bold;
-    font-size: 20px !important;
-}
 
 /* SUCCESSFUL BOOKING CSS */
 .btn-responsive {

@@ -29,10 +29,11 @@
         {% endfor %}
     </div>
     {% endif %}
+    <div class="main">
+        {% block content %}
 
-    {% block content %}
-    <!--  -->
-    {% endblock content %}
+        {% endblock content %}
+    </div>
     <!-- Footer -->
     {% include 'footer.html' %}
 
