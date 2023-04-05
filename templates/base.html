@@ -17,11 +17,32 @@
     <!-- Header -->
     {% include 'header.html' %}
 
+    <!-- Django Alert Messages -->
+
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
+            {{ message | safe }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     {% block content %}
     <!--  -->
     {% endblock content %}
     <!-- Footer -->
     {% include 'footer.html' %}
+
+    <script>
+        setTimeout(function () {
+            let messages = document.getElementById('msg');
+            let alert = new bootstrap.Alert(messages);
+            alert.close();
+        }, 2500);
+    </script>
 
     <!-- Modal -->
     <!-- <div class="modal fade" id="genericModal" tabindex="-1" role="dialog" aria-labelledby="genericModalLabel"
@@ -43,6 +64,8 @@
             </div>
         </div>
     </div> -->
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
         integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
