@@ -29,8 +29,24 @@
         {% endfor %}
     </div>
     {% endif %}
+
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field in form %}
+            {% for error in field.errors %}
+            <li><strong>{{ field.label }}:</strong> {{ error|escape }}</li>
+            {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+            <li>{{ error|escape }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
     <div class="main">
         {% block content %}
+
 
         {% endblock content %}
     </div>

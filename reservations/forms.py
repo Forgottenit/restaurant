@@ -55,13 +55,18 @@ class BookingForm(forms.ModelForm):
     # Display time options as DINNER_TIME_CHOICES as Radio buttons
     time = forms.ChoiceField(choices=DINNER_TIME_CHOICES, widget=RadioSelect)
 
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
     class Meta:
         model = Reservation
         fields = ['name', 'email', 'date', 'time',
                   'special_requests', 'party_size']
 
     """
-    Function to calculate total guests for given reservations at a specific
+    Function to calculate total guests for all reservations at a specific
     time and at set intervals
     """
     def guests_during_booking(self, reservations,
@@ -92,6 +97,19 @@ class BookingForm(forms.ModelForm):
                                 datetime.combine(date, datetime.strptime(time, "%H:%M").time()),
                                 timezone.get_current_timezone()
                             )
+
+            # Check if there is an existing booking for that user on that slot
+            
+            user = self.user
+            # double_booking = Reservation.objects.filter(user=user, date=date, time=time).exists()
+            double_booking = Reservation.objects.filter(user=user, date=date).exists()
+            print("User:", user)
+            print("Date:", date)
+            print("Time:", time)
+            print("Double booking:", double_booking)    
+
+            if double_booking:
+                raise forms.ValidationError("You have a booking that day already.")
 
             # Check that the time of the booking is later than the current time
             if input_datetime < now:

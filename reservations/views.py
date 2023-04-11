@@ -8,7 +8,7 @@ from django.http import HttpResponseForbidden
 @login_required
 def reservations(request):
     if request.method == 'POST':
-        form = BookingForm(request.POST)
+        form = BookingForm(request.POST, user=request.user)
         print(request.POST)  # print request.POST to the console
         if form.is_valid():
             reservation = form.save(commit=False)
@@ -18,7 +18,7 @@ def reservations(request):
         else:
             print(form.errors)  # print form.errors to the console
     else:
-        form = BookingForm()
+        form = BookingForm(user=request.user)
     return render(request, 'reservations.html', {'form': form})
 
 
