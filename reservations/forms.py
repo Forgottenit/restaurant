@@ -97,13 +97,11 @@ class BookingForm(forms.ModelForm):
                                 datetime.combine(date, datetime.strptime(time, "%H:%M").time()),
                                 timezone.get_current_timezone()
                             )
-
+            user = self.user
+            reservations = Reservation.objects.filter(date=date, user=user)
             # Check if there is an existing booking for that user on that slot
-            # existing_booking = Reservation.objects.filter(date=date).exists()
-            # if existing_booking:
-            #     raise forms.ValidationError("A booking already exists for this date and time slot.")
-            
             if self.instance.pk is not None:
+                reservations = reservations.exclude(pk=self.instance.pk)
                 existing_booking = Reservation.objects.filter(date=date).exclude(pk=self.instance.pk).exists()
             else:
                 existing_booking = Reservation.objects.filter(date=date).exists()
@@ -111,49 +109,15 @@ class BookingForm(forms.ModelForm):
             if existing_booking:
                 raise forms.ValidationError("A booking already exists for this date and time slot.")
 
-            user = self.user
-            
-            reservations = Reservation.objects.filter(date=date, user=user)
-            # reservations = Reservation.objects.filter(date=date)
-            # double_booking = Reservation.objects.filter(user=user, date=date, time=time).exists()
-            # double_booking = Reservation.objects.filter(user=user, date=date).exists()
-
-            """
-            Exclude the current reservation's party size if editing a booking
-            by checking if it has a primary key
-            """
-            if self.instance.pk is not None:
-                reservations = reservations.exclude(pk=self.instance.pk)
-
             if reservations.exists() and not (self.instance.pk is not None and self.instance.date == date):
                 raise forms.ValidationError("You already have a booking on this date.")
-            #     double_booking = Reservation.objects.filter(user=user, date=date).exclude(pk=self.instance.pk).exists()
-            # else:
-            #     double_booking = Reservation.objects.filter(user=user, date=date).exists()
 
-            # if self.instance.pk is not None:
-            # if self.instance.pk:
-                # exclude the current reservation's party size if editing a booking
-            #     reservations = reservations.exclude(pk=self.instance.pk)
-            # if reservations.exists():
-            #     raise forms.ValidationError("You already have a booking on this date.")
-            # existing_booking = reservations.filter(date=date).exists()
-            # if existing_booking:
-            #     raise forms.ValidationError("You have a booking that day already.")
-                
-            # if double_booking:
-            #     raise forms.ValidationError("You have a booking that day already.")
-            # if reservations.exists():
-            #     raise forms.ValidationError("You have a booking that day already.")
             # Check that the time of the booking is later than the current time
             if input_datetime < now:
                 self.add_error(
                     'time',
                     ValidationError("Booking time cannot be in the past.")
                 )
-
-            
-
 
             """
             Calculate the available capacity from 0 then every 15 minutes of
