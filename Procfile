@@ -1,1 +1,1 @@
-web: gunicorn forgottenit-restaurant.wsgi
+web: gunicorn restaurant.wsgi
