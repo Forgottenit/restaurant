@@ -35,13 +35,13 @@
                         <!-- Add edit and delete reservation links here -->
                         <div class="btn-group d-flex">
                             <a href="{% url 'edit_reservation' reservation_id=reservation.id %}"
-                                class="btn btn-primary flex-grow-1 btn-responsive">
+                                class="btn btn-edit flex-grow-1 btn-responsive">
                                 Edit Reservation
                             </a>
 
                             <a href="#" data-reservation-id="{{ reservation.id }}"
                                 data-delete-url="{% url 'delete_reservation' reservation_id=reservation.id %}"
-                                class="btn btn-danger flex-grow-1 btn-responsive cancel-reservation-btn">
+                                class="btn btn-delete flex-grow-1 btn-responsive cancel-reservation-btn">
                                 Delete Reservation
                             </a>
                         </div>

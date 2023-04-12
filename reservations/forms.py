@@ -62,6 +62,13 @@ class BookingForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
 
+        self.fields['name'].widget.attrs.update({'class': 'form-control custom-input'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control custom-input'})
+        self.fields['date'].widget.attrs.update({'class': 'form-control custom-input'})
+        self.fields['time'].widget.attrs.update({'class': 'custom-radio'})
+        self.fields['special_requests'].widget.attrs.update({'class': 'form-control custom-textarea'})
+        self.fields['party_size'].widget.attrs.update({'class': 'form-control custom-select'})
+
     class Meta:
         model = Reservation
         fields = ['name', 'email', 'date', 'time',

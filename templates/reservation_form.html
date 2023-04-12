@@ -10,6 +10,107 @@
                 <div class="card-body">
                     <form method="POST" class="reservation-form">
                         {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div class="form-group">
+                            <label for="{{ form.name.id_for_label }}"></label>
+                            {{ form.name|as_crispy_field }}
+                            {% if form.name.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.name.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.email.id_for_label }}"></label>
+                            {{ form.email|as_crispy_field }}
+                            {% if form.email.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.email.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.date.id_for_label }}"></label>
+                            {{ form.date|as_crispy_field }}
+                            {% if form.date.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.date.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.time.id_for_label }}">Time*</label>
+                            <div class="btn-group btn-group-toggle d-flex flex-wrap" data-toggle="buttons">
+                                {% for radio in form.time %}
+                                <label class="btn btn-outline-primary btn-radio">
+                                    {{ radio.tag }}
+                                    {{ radio.choice_label }}
+                                </label>
+                                {% endfor %}
+                            </div>
+                            {% if form.time.errors %}
+                            <div class="invalid-feedback d-block error-msg">
+                                {% for error in form.time.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.special_requests.id_for_label }}"></label>
+                            {{ form.special_requests|as_crispy_field }}
+                            {% if form.special_requests.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.special_requests.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.party_size.id_for_label }}"></label>
+                            {{ form.party_size|as_crispy_field }}
+                            {% if form.party_size.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.party_size.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-submit reservation-form-submit"
+                            id="reservation-form-submit-btn">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- {% load crispy_forms_tags %}
+{% load static %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h3 class="mb-0">Reservations</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" class="reservation-form">
+                        {% csrf_token %}
                         <div class="form-group">
                             <label for="{{ form.name.id_for_label }}"></label>
                             {{ form.name|as_crispy_field }}
@@ -31,10 +132,10 @@
                                     {{ radio.choice_label }}
                                 </label>
                                 {% endfor %}
-                            </div>
+                            </div> -->
 
-                            <!-- Didplay error if booking time earlier than current time -->
-                            {% if form.time.errors %}
+<!-- Didplay error if booking time earlier than current time -->
+<!-- {% if form.time.errors %}
                             <div class="invalid-feedback d-block error-msg">
                                 {% for error in form.time.errors %}
                                 {{ error }}
@@ -51,11 +152,11 @@
                             <label for="{{ form.party_size.id_for_label }}"></label>
                             {{ form.party_size|as_crispy_field }}
                         </div>
-                        <button type="submit" class="btn btn-primary reservation-form-submit"
+                        <button type="submit" class="btn btn-submit reservation-form-submit"
                             id="reservation-form-submit-btn">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div> -->
