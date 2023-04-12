@@ -40,7 +40,7 @@ def reservations(request):
 
 @login_required
 def user_reservations(request):
-    reservations = Reservation.objects.filter(user=request.user)
+    reservations = Reservation.objects.filter(user=request.user).order_by('date')
     return render(request, 'successful_booking.html', {'reservations': reservations})
 
 
