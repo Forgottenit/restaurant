@@ -1,9 +1,11 @@
 from django import forms
-from .models import Reservation
 from django.forms.widgets import DateInput, RadioSelect
 from django.core.exceptions import ValidationError
 from datetime import date, datetime, time, timedelta
 from django.utils import timezone
+from .models import Reservation
+
+from django.template.loader import render_to_string
 
 # Capacity of Restaurant set at 50 and Each Booking to last one hour
 MAX_CAPACITY = 50
@@ -90,61 +92,113 @@ class BookingForm(forms.ModelForm):
         cleaned_data = super().clean()
         date = cleaned_data.get('date')
         time = cleaned_data.get('time')
+        error_message = ""
+        
 
         if date and time:
             now = timezone.localtime(timezone.now())
             input_datetime = timezone.make_aware(
-                                datetime.combine(date, datetime.strptime(time, "%H:%M").time()),
-                                timezone.get_current_timezone()
-                            )
+                datetime.combine(date, datetime.strptime(time, "%H:%M").time()),
+                timezone.get_current_timezone()
+            )
             user = self.user
             reservations = Reservation.objects.filter(date=date, user=user)
-            # Check if there is an existing booking for that user on that slot
+            existing_booking = Reservation.objects.filter(date=date).exclude(pk=self.instance.pk).exists()
+
             if self.instance.pk is not None:
                 reservations = reservations.exclude(pk=self.instance.pk)
-                existing_booking = Reservation.objects.filter(date=date).exclude(pk=self.instance.pk).exists()
-            else:
-                existing_booking = Reservation.objects.filter(date=date).exists()
-
             if existing_booking:
-                raise forms.ValidationError("A booking already exists for this date and time slot.")
-
-            if reservations.exists() and not (self.instance.pk is not None and self.instance.date == date):
-                raise forms.ValidationError("You already have a booking on this date.")
-
-            # Check that the time of the booking is later than the current time
-            if input_datetime < now:
-                self.add_error(
-                    'time',
-                    ValidationError("Booking time cannot be in the past.")
-                )
-
-            """
-            Calculate the available capacity from 0 then every 15 minutes of
-            the booking duration. This ensures there is capacity for the whole
-            duration of the booking (1hr or 4 x 15mins)
-            """
-            available_capacity_for_duration = [
-                MAX_CAPACITY - self.guests_during_booking(
-                    reservations,
-                    (interval_start := input_datetime +
-                        timedelta(minutes=15 * i)),
-                    (interval_end := input_datetime +
-                        timedelta(minutes=15 * (i + 1)))
-                )
-                for i in range(4)
-            ]
-
-            if all(capacity >= cleaned_data['party_size']
-                    for capacity in available_capacity_for_duration):
-                return cleaned_data
+                error_message = "A booking already exists for this date and time slot."
+                self.add_error(None, error_message)
+            elif reservations.exists() and not (self.instance.pk is not None and self.instance.date == date):
+                error_message = "You already have a booking on this date."
+                self.add_error(None, error_message)
+            elif input_datetime < now:
+                error_message = "Booking time cannot be in the past."
+                self.add_error('time', error_message)
             else:
-                """
-                Return Validation error and show availability
-                for the chosen booking time
-                """
-                min_available_capacity = min(available_capacity_for_duration)
-                error_message = f"Booking not available. Maximum available " \
-                                f"capacity at this time is "\
-                                f"{min_available_capacity}."
-                self.add_error('party_size', ValidationError(error_message))
+                available_capacity_for_duration = [
+                    MAX_CAPACITY - self.guests_during_booking(
+                        reservations,
+                        (interval_start := input_datetime + timedelta(minutes=15 * i)),
+                        (interval_end := input_datetime + timedelta(minutes=15 * (i + 1)))
+                    )
+                    for i in range(4)
+                ]
+
+                if all(capacity >= cleaned_data['party_size'] for capacity in available_capacity_for_duration):
+                    return cleaned_data
+                else:
+                    min_available_capacity = min(available_capacity_for_duration)
+                    error_message = f"Booking not available. Maximum available capacity at this time is {min_available_capacity}."
+                    self.add_error('party_size', error_message)
+
+            # Add the error message to the cleaned data dictionary
+            cleaned_data['error_message'] = error_message
+
+            return cleaned_data
+
+
+
+
+
+
+        # if date and time:
+        #     now = timezone.localtime(timezone.now())
+        #     input_datetime = timezone.make_aware(
+        #                         datetime.combine(date, datetime.strptime(time, "%H:%M").time()),
+        #                         timezone.get_current_timezone()
+        #                     )
+        #     user = self.user
+        #     reservations = Reservation.objects.filter(date=date, user=user)
+        #     # Check if there is an existing booking for that user on that slot
+        #     if self.instance.pk is not None:
+        #         reservations = reservations.exclude(pk=self.instance.pk)
+        #         existing_booking = Reservation.objects.filter(date=date).exclude(pk=self.instance.pk).exists()
+        #     else:
+        #         existing_booking = Reservation.objects.filter(date=date).exists()
+
+        #     # Booking exists error
+
+        #     if existing_booking:
+        #        raise forms.ValidationError("A booking already exists for this date and time slot.")
+
+        #     if reservations.exists() and not (self.instance.pk is not None and self.instance.date == date):
+        #         raise forms.ValidationError("You already have a booking on this date.")
+
+        #     # Check that the time of the booking is later than the current time
+        #     if input_datetime < now:
+        #         self.add_error(
+        #             'time',
+        #             ValidationError("Booking time cannot be in the past.")
+        #         )
+
+        #     """
+        #     Calculate the available capacity from 0 then every 15 minutes of
+        #     the booking duration. This ensures there is capacity for the whole
+        #     duration of the booking (1hr or 4 x 15mins)
+        #     """
+        #     available_capacity_for_duration = [
+        #         MAX_CAPACITY - self.guests_during_booking(
+        #             reservations,
+        #             (interval_start := input_datetime +
+        #                 timedelta(minutes=15 * i)),
+        #             (interval_end := input_datetime +
+        #                 timedelta(minutes=15 * (i + 1)))
+        #         )
+        #         for i in range(4)
+        #     ]
+
+        #     if all(capacity >= cleaned_data['party_size']
+        #             for capacity in available_capacity_for_duration):
+        #         return cleaned_data
+        #     else:
+        #         """
+        #         Return Validation error and show availability
+        #         for the chosen booking time
+        #         """
+        #         min_available_capacity = min(available_capacity_for_duration)
+        #         error_message = f"Booking not available. Maximum available " \
+        #                         f"capacity at this time is "\
+        #                         f"{min_available_capacity}."
+        #         self.add_error('party_size', ValidationError(error_message))

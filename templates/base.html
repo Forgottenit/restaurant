@@ -61,6 +61,30 @@
         }, 2500);
     </script>
     {% include 'custom_modal.html' %}
+    {% if form_errors %}
+    <div id="form-errors" style="display:none;">{{ form_errors|safe }}</div>
+    {% endif %}
+    <!-- {% if form_errors %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let errors = JSON.parse('{{ form_errors|safe }}');
+            let errorMessages = "";
+
+            for (const field in errors) {
+                for (const message of errors[field]) {
+                    errorMessages += "<p>" + message.message + "</p>";
+                }
+            }
+
+            showModal({
+                title: "Error",
+                body: errorMessages,
+                actionText: "Close",
+                actionClass: "btn-secondary",
+            });
+        });
+    </script>
+    {% endif %} -->
 
     </div>
 
@@ -76,6 +100,7 @@
     <script src="{% static 'js/show_custom_modal.js' %}"></script>
     <script src="{% static 'js/confirm_cancel_reservation.js' %}"></script>
     <script src="{% static 'js/confirm_reservation_form.js' %}"></script>
+    <script src="{% static 'js/show_errors.js' %}"></script>
 </body>
 
 </html>
