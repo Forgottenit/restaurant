@@ -38,7 +38,7 @@
                 {% if user.is_authenticated %}
                 <div class="d-flex">
                     <span class="navbar-text me-3 text-white">Welcome, {{ user.username }}</span>
-                    <a class="btn btn-outline-light" href="{% url 'logout' %}">Logout</a>
+                    <a class="btn btn-outline-light logout-btn" href="{% url 'logout' %}">Logout</a>
                 </div>
                 {% endif %}
             </div>

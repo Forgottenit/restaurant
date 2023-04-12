@@ -10,16 +10,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Document</title>
 </head>
 
 <body>
     <!-- Header -->
-    {% include 'header.html' %}
+    {% include 'nav_bar.html' %}
 
     <!-- Django Alert Messages -->
 
@@ -68,27 +70,7 @@
     {% if form_errors %}
     <div id="form-errors" style="display:none;">{{ form_errors|safe }}</div>
     {% endif %}
-    <!-- {% if form_errors %}
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let errors = JSON.parse('{{ form_errors|safe }}');
-            let errorMessages = "";
 
-            for (const field in errors) {
-                for (const message of errors[field]) {
-                    errorMessages += "<p>" + message.message + "</p>";
-                }
-            }
-
-            showModal({
-                title: "Error",
-                body: errorMessages,
-                actionText: "Close",
-                actionClass: "btn-secondary",
-            });
-        });
-    </script>
-    {% endif %} -->
 
     </div>
 

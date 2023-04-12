@@ -9,6 +9,15 @@ body {
     flex-direction: column;
 }
 
+.fa,
+.fas,
+.far,
+.fal,
+.fad,
+.fab {
+    font-family: 'Font Awesome 5 Free';
+}
+
 /* NAVBAR CSS STYLING */
 header {
     background-color: #212529;
@@ -32,12 +41,18 @@ header {
 
 .navbar-nav .nav-link:hover {
     color: #ffc107 !important;
-    font-size: 20px;
+    font-size: 19px;
 }
 
 .navbar-nav .active {
     font-weight: bold;
-    font-size: 20px !important;
+    font-size: 19px !important;
+}
+
+.logout-btn {
+    color: #000000;
+    border-color: #000000;
+    background-color: #f8f9fa;
 }
 
 /* FOOTER STYLING */
@@ -158,7 +173,6 @@ h1 {
 
 /* SIGN UP/ LOGIN CSS STYLING */
 
-
 .signup,
 .login {
     display: flex;
@@ -173,8 +187,115 @@ h1 {
     margin: 2rem 0;
 }
 
-#login-btn {
+/* LOGIN/ SIGNUP  STYLES */
+.login-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #e5dbc5;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.login-title,
+.signup-title {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #2c2c2c;
+}
+
+.signup-section {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.signup-text {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Button styles */
+.btn-auth {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.btn-auth:hover,
+.btn-auth:focus {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.signup-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     margin: 2rem 0;
+}
+
+.form-control {
+    background-color: #f4f1ea;
+    color: #4a4a4a;
+    border-color: #a66532;
+}
+
+.form-control:focus {
+    border-color: #8a5529;
+    box-shadow: 0 0 0 0.2rem rgba(138, 85, 41, 0.25);
+}
+
+
+
+/* Button styles */
+.btn-responsive {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* Login Button */
+.login-btn {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.login-btn:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+/* Sign Up Button */
+.signup-btn {
+    background-color: #000000;
+    border-color: #2c2d2c;
+    color: #fff;
+}
+
+.signup-btn:hover {
+    background-color: #dbdddb;
+    border-color: #000000;
+    color: #000000;
+    font-weight: 900;
 }
 
 /* RESERVATION FORM STYLING */
@@ -186,8 +307,8 @@ h1 {
 .btn-submit:hover,
 .btn-submit:focus,
 .btn-submit:active {
-    background-color: #cef5d6;
-    border-color: #218838;
+    background-color: #f4f1ea;
+    border-color: #8a5529;
 }
 
 /* RADIO BUTTONS */
@@ -210,7 +331,6 @@ h1 {
     border-color: #000000;
 }
 
-
 .custom-input {
     border: 2px solid #a0a0a0;
     border-radius: 5px;
@@ -219,8 +339,6 @@ h1 {
     font-weight: bold;
     color: #333;
 }
-
-
 
 .custom-textarea {
     border: 2px solid #a0a0a0;
@@ -251,7 +369,6 @@ h1 {
     font-size: .875em;
     color: #dc3545;
     font-weight: bold;
-
 }
 
 /* CUSTOM MODAL STYLING */
@@ -259,6 +376,14 @@ h1 {
     background-color: #e5dbc5;
     color: #4a4a4a;
     border-bottom: none;
+}
+
+#close-modal-btn {
+
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #040404;
+    cursor: pointer;
 }
 
 #customModal .modal-title {
@@ -303,32 +428,34 @@ h1 {
 #customModal #customModalAction:hover,
 #customModal #customModalAction:focus,
 #customModal #customModalAction:active {
-    background-color: #3b67b6;
-    border-color: #3b67b6;
+    background-color: #f4f1ea;
+    border-color: #8a5529;
 }
 
 /* Edit and Delete Reservation buttons */
 .btn-edit {
-    background-color: #5680e9;
+    font-weight: 700;
+    background-color: #b6c8f4;
     border-color: #5680e9;
 }
 
 .btn-edit:hover,
 .btn-edit:focus,
 .btn-edit:active {
-    background-color: #3b67b6;
+    background-color: #8db4fc;
     border-color: #3b67b6;
 }
 
 .btn-delete {
-    background-color: #e74c3c;
-    border-color: #e74c3c;
+    background-color: #f6bfb9;
+    border-color: #f76858;
+    font-weight: 700;
 }
 
 .btn-delete:hover,
 .btn-delete:focus,
 .btn-delete:active {
-    background-color: #c0392b;
+    background-color: #f9887c;
     border-color: #c0392b;
 }
 
@@ -356,7 +483,7 @@ h1 {
 
 /* MEDIA QUERIES CSS */
 
-@media (max-width: 999px) {
+@media (max-width: 768px) {
     .vertical-table thead {
         display: none;
     }
@@ -409,7 +536,7 @@ h1 {
 }
 
 /* LARGE SCREEN */
-@media (min-width: 999px) {
+@media (min-width: 1024px) {
     .btn-responsive {
         font-size: 16px;
         padding: 8px 16px !important;
