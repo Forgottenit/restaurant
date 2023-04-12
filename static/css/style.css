@@ -42,7 +42,7 @@ header {
 }
 
 /* ACCORDION CSS STYLING */
-.accordion-body {
+/* .accordion-body {
     font-size: large;
     text-align: center;
 }
@@ -52,6 +52,39 @@ header {
     text-align: center;
     background-color: rgb(215, 176, 251);
     font-size: large;
+} */
+
+/* Menu styles */
+h1 {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.menu-category {
+    font-family: 'Playfair Display', serif;
+    color: #2c3e50;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #2c3e50;
+}
+
+.menu-item {
+    margin-bottom: 20px;
+}
+
+.menu-item h5 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.menu-item p {
+    font-family: 'Roboto', sans-serif;
+    color: #7f8c8d;
+    margin-bottom: 0;
 }
 
 /* SIGN UP/ LOGIN CSS STYLING */
