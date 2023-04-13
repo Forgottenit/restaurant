@@ -231,6 +231,12 @@ The message div was then targeted to close after 2.5 Seconds using the set Timeo
 
 ## Testing
 
+### MANUAL TESTS
+ - TESTED filling special requests all the way across
+ - TESTED errors and displays for errors
+ - TESTED links, added if statements to check if user logged in or not
+ - FontAwsome installed in new link as would not work in preinstalled version
+ - 
 
 ## Constraints
 

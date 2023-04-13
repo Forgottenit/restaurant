@@ -5,9 +5,9 @@
 <div class="container mt-5">
     <h2>Your Reservations</h2>
     <div class="table-responsive">
-        <table class="table table-striped table-bordered vertical-table">
+        <table class="table">
             <thead>
-                <tr>
+                <tr class="d-none d-md-table-row">
                     <th>Name</th>
                     <th>Email</th>
                     <th>Date</th>
@@ -22,7 +22,6 @@
             <tbody>
                 {% for reservation in reservations %}
                 <tr>
-
                     <td data-label="Name">{{ reservation.name }}</td>
                     <td data-label="Email">{{ reservation.email }}</td>
                     <td data-label="Date">{{ reservation.date }}</td>
@@ -31,19 +30,18 @@
                     <td data-label="Special Requests">{{ reservation.special_requests }}</td>
                     <td data-label="Status">{{ reservation.status }}</td>
                     <td data-label="Created On">{{ reservation.created_on }}</td>
-                    <td data-label="Actions">
-                        <!-- Add edit and delete reservation links here -->
+                    <td class="action-buttons">
                         <div class="btn-group d-flex">
-                            <a href="{% url 'edit_reservation' reservation_id=reservation.id %}"
-                                class="btn btn-edit flex-grow-1 btn-responsive">
-                                Edit Reservation
-                            </a>
-
                             <a href="#" data-reservation-id="{{ reservation.id }}"
                                 data-delete-url="{% url 'delete_reservation' reservation_id=reservation.id %}"
                                 class="btn btn-delete flex-grow-1 btn-responsive cancel-reservation-btn">
-                                Delete Reservation
+                                Delete
                             </a>
+                            <a href="{% url 'edit_reservation' reservation_id=reservation.id %}"
+                                class="btn btn-edit flex-grow-1 btn-responsive">
+                                Edit
+                            </a>
+
                         </div>
                     </td>
                 </tr>

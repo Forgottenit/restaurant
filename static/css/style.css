@@ -430,11 +430,51 @@ h1 {
 #customModal #customModalAction:active {
     background-color: #f4f1ea;
     border-color: #8a5529;
+    color: #000;
 }
 
+/* SUCCESSFUL BOOKING CSS */
+
+.table td {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: left;
+}
+
+.table th {
+    font-weight: 600;
+    background-color: #e5dbc5;
+}
+
+.table tbody tr:hover {
+    background-color: #e5dbc5;
+    cursor: pointer;
+}
+
+
 /* Edit and Delete Reservation buttons */
-.btn-edit {
+.btn-edit,
+.btn-delete {
     font-weight: 700;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-edit {
     background-color: #b6c8f4;
     border-color: #5680e9;
 }
@@ -449,7 +489,6 @@ h1 {
 .btn-delete {
     background-color: #f6bfb9;
     border-color: #f76858;
-    font-weight: 700;
 }
 
 .btn-delete:hover,
@@ -460,85 +499,37 @@ h1 {
 }
 
 
-/* SUCCESSFUL BOOKING CSS */
-.btn-responsive {
-    font-size: 16px;
-    padding: 8px 16px !important;
-}
-
-.table {
-    background-color: #f4f1ea;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-.table th {
-    font-weight: 600;
-    background-color: #e5dbc5;
-}
-
-.table tbody tr:hover {
-    background-color: #e5dbc5;
-    cursor: pointer;
-}
 
 /* MEDIA QUERIES CSS */
 
-@media (max-width: 768px) {
-    .vertical-table thead {
+/* Small and Medium screens */
+@media (max-width: 1024px) {
+    .table th {
         display: none;
     }
 
-    .vertical-table tr {
-        display: block;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-    }
-
-    .vertical-table td {
-        display: block;
-        border: none;
-        border-bottom: 1px solid #ccc;
-        padding: 5px;
-        text-align: right;
-    }
-
-    .vertical-table td:before {
+    .table td:before {
         content: attr(data-label);
-        float: left;
+        display: inline-block;
         font-weight: bold;
-        padding-right: 10px;
+        margin-right: 5px;
         text-align: left;
+        vertical-align: top;
     }
 
-    .vertical-table td:last-child {
-        border-bottom: none;
+    .table td {
+        display: block;
+        margin-bottom: 5px;
     }
 
-}
-
-
-/* SMALL SCREEN */
-@media (max-width: 575.98px) {
-    .btn-responsive {
-        font-size: 12px;
-        padding: 5px 10px !important;
+    .table td:last-child {
+        margin-bottom: 0;
     }
 }
 
-/* MEDIUM SCREEN */
-@media (min-width: 578px) and (max-width: 999px) {
-    .btn-responsive {
-        font-size: 12px;
-        padding: 6px 2px !important;
-        line-height: 1.5;
-
-    }
-}
-
-/* LARGE SCREEN */
-@media (min-width: 1024px) {
-    .btn-responsive {
-        font-size: 16px;
-        padding: 8px 16px !important;
+/* Large screens and up */
+@media (min-width: 1025px) {
+    .table td:before {
+        content: none;
     }
 }
