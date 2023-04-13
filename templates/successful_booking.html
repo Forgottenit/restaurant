@@ -2,12 +2,13 @@
 {% load static %}
 {% block content %}
 
-<div class="container mt-5">
+<div class="container mt-5 table-container">
     <h2>Your Reservations</h2>
     <div class="table-responsive">
         <table class="table">
             <thead>
                 <tr class="d-none d-md-table-row">
+                    <th>Booking Ref:</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Date</th>
@@ -22,15 +23,16 @@
             <tbody>
                 {% for reservation in reservations %}
                 <tr>
-                    <td data-label="Name">{{ reservation.name }}</td>
-                    <td data-label="Email">{{ reservation.email }}</td>
-                    <td data-label="Date">{{ reservation.date }}</td>
-                    <td data-label="Time">{{ reservation.time }}</td>
-                    <td data-label="Party Size">{{ reservation.party_size }}</td>
-                    <td data-label="Special Requests">{{ reservation.special_requests }}</td>
-                    <td data-label="Status">{{ reservation.status }}</td>
-                    <td data-label="Created On">{{ reservation.created_on }}</td>
-                    <td class="action-buttons">
+                    <td data-label="Booking Ref:">{{ reservation.id }}</td>
+                    <td data-label="Name: ">{{ reservation.name }}</td>
+                    <td data-label="Email: ">{{ reservation.email }}</td>
+                    <td data-label="Date: ">{{ reservation.date }}</td>
+                    <td data-label="Time: ">{{ reservation.time }}</td>
+                    <td data-label="Party Size: ">{{ reservation.party_size }}</td>
+                    <td data-label="Special Requests: ">{{ reservation.special_requests }}</td>
+                    <td data-label="Status: ">{{ reservation.status }}</td>
+                    <td data-label="Created On: ">{{ reservation.created_on }}</td>
+                    <td class="action-buttons: ">
                         <div class="btn-group d-flex">
                             <a href="#" data-reservation-id="{{ reservation.id }}"
                                 data-delete-url="{% url 'delete_reservation' reservation_id=reservation.id %}"
