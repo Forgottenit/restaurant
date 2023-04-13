@@ -176,7 +176,31 @@
     </div>
 </div>
 
-<!-- Stylish links to other sections -->
+<!-- Google Maps -->
+<script>
+    function initMap() {
+        const myLatLng = {
+            lat: 53.3559,
+            lng: -6.3298
+        };
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 12,
+            center: myLatLng,
+        });
+        new google.maps.Marker({
+            position: myLatLng,
+            map,
+            title: "Restaurant",
+        });
+    }
+</script>
+<div class="container mt-5">
+    <div id="map" style="height: 400px; width: 100%;"></div>
+</div>
+<script async src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_key }}&callback=initMap"></script>
+<!-- Links to other sections -->
+
+
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-4">

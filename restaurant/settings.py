@@ -15,6 +15,10 @@ import os
 from django.contrib.messages import constants as messages
 import dj_database_url
 import sys
+from django.conf import settings
+from dotenv import load_dotenv
+load_dotenv()
+
 
 if os.path.isfile("env.py"):
     import env
@@ -23,6 +27,14 @@ if os.path.isfile("env.py"):
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
+
+GOOGLE_MAPS_KEY = os.getenv("GOOGLE_MAPS_KEY")
+
+# Add a custom context processor to add GOOGLE_MAPS_KEY to the context
+def custom_context_processor(request):
+    return {
+        'google_maps_key': GOOGLE_MAPS_KEY
+    }
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -80,6 +92,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.static',
                 'django.contrib.messages.context_processors.messages',
+                'restaurant.settings.custom_context_processor',
             ],
         },
     },
