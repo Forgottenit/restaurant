@@ -53,6 +53,7 @@ For this Project a Template provided by CodeInstitute was used -[Template](https
 
 - Changes are Migrated as needed, but initially as:
     - python3 manage.py migrate
+    - Then python3 manage.py manage migrations followed by python3 manage.py migrate
 
 - The server is then tested:
     - python3 manage.py runserver
@@ -82,6 +83,8 @@ For this Project a Template provided by CodeInstitute was used -[Template](https
 ### Cloudinary
 - Login to Cloudinary
 - On the Dashboard under API Environment variable, copy the CLOUDINARY_URL (copy from after the "=" symbol) 
+    - The Settings needed and how to hide your private key are explained in the "Link Databases and Hide KEYS" and "Settings.py Setup" sections below. 
+    - Once the project is complete, run "python manage.py collectstatic" in the CLI then type yes when prompted to store media and static in "Cloudinary". 
 ### Link Databases and Hide KEYS
 - Create an env.py in the top-level directory (This is for the SECRET_KEY in Django and also the URL's for ElephantSQL and Cloudinary, so they are not pushed to Git and visible to others)
 - At the top of the env.py file import os
@@ -188,9 +191,11 @@ For this Project a Template provided by CodeInstitute was used -[Template](https
 - Add to settings.py:
     - INSTALLED_APPS = [
     ...
-    'crispy_forms',
+    "crispy_forms",
     'crispy_bootstrap5',
     '...
+    
+    - Note above that crispy_forms has Double Quotation marks, this is important.
 ]   
    -  Add TEMPLATE packs:
       CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -213,8 +218,12 @@ MESSAGE_TAGS = {
 The message div was then targeted to close after 2.5 Seconds using the set Timeout function. 
 - This method was learned from the CodeInstitute classes.
 
-
-
+## Getting Started
+- Once all the requirements are met, to initialise the project type:
+    - django-admin startproject __PROJ_NAME__ into the CLI (replace __PROJ_NAME__  with the name you want to give your project)
+    - Test it's working with python3 manage.py runserver and open the relevant PORT, usually 8000 (You are prompted to open the Port in GitHub, although, if not, you can click PORTS in the CLI Heading and select the relevant PORT) 
+- Then create your apps by typing the following into the CLI 
+    - python manage.py startapp __APP_NAME__ (replace __APP_NAME__  with the name you want to give your project)
 
 
 ## Technology used
@@ -224,13 +233,15 @@ The message div was then targeted to close after 2.5 Seconds using the set Timeo
 3. Heroku for deployment
 4. Code Instistute Terminal for displaying finished product
 5. https://pep8ci.herokuapp.com/ CI Python Linter for testing code
-6. # DJANGO, CLOUDINARY, ElephantSQL....
+6. # DJANGO, CLOUDINARY, ElephantSQL....CRISPY FORMS JQuery, Google Fonts, FontAwesome
 
 ## Imports used from Python Library
 
 
 ## Testing
 
+### AUTOMATED TESTS
+ - ERROR Handlers for Errors 403 (403 Forbidden error) 404 (404 Not Found error) and 500 (500 Internal Server Error) were created in the "customers" views.py. These errors then lead to the respective html files for each in the "errors" folder inside the "templates" folder.
 ### MANUAL TESTS
  - TESTED filling special requests all the way across
  - TESTED errors and displays for errors

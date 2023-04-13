@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="display-1 text-center">404</h1>
+            <p class="lead text-center">Sorry, the page you are looking for could not be found.</p>
+            <p class="text-center">
+                <a href="{% url 'home' %}" class="btn btn-primary">Return to the homepage</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
