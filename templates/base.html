@@ -36,20 +36,7 @@
     </div>
     {% endif %}
 
-    {% if form.errors %}
-    <div class="alert alert-danger">
-        <ul>
-            {% for field in form %}
-            {% for error in field.errors %}
-            <li><strong>{{ field.label }}:</strong> {{ error|escape }}</li>
-            {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
-            <li>{{ error|escape }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    {% endif %}
+
     <div class="main">
         {% block content %}
 
@@ -67,6 +54,9 @@
         }, 2500);
     </script>
     {% include 'custom_modal.html' %}
+
+
+    <!-- Display Errors -->
     {% if form_errors %}
     <div id="form-errors" style="display:none;">{{ form_errors|safe }}</div>
     {% endif %}

@@ -223,8 +223,9 @@ The message div was then targeted to close after 2.5 Seconds using the set Timeo
     - django-admin startproject __PROJ_NAME__ into the CLI (replace __PROJ_NAME__  with the name you want to give your project)
     - Test it's working with python3 manage.py runserver and open the relevant PORT, usually 8000 (You are prompted to open the Port in GitHub, although, if not, you can click PORTS in the CLI Heading and select the relevant PORT) 
 - Then create your apps by typing the following into the CLI 
-    - python manage.py startapp __APP_NAME__ (replace __APP_NAME__  with the name you want to give your project)
-
+    - python manage.py startapp __APP_NAME__ (replace __APP_NAME__  with the name you want to give your project) Then add the app to INSTALLED_APPS in settings.py in the project folder.
+- Then create a "Super User" who has Admin priveledges by typing:
+    - python manage.py createsuperuser into the CLI and follow the prompts
 
 ## Technology used
 
@@ -242,6 +243,8 @@ The message div was then targeted to close after 2.5 Seconds using the set Timeo
 
 ### AUTOMATED TESTS
  - ERROR Handlers for Errors 403 (403 Forbidden error) 404 (404 Not Found error) and 500 (500 Internal Server Error) were created in the "customers" views.py. These errors then lead to the respective html files for each in the "errors" folder inside the "templates" folder.
+
+ - To run the tests 
 ### MANUAL TESTS
  - TESTED filling special requests all the way across
  - TESTED errors and displays for errors

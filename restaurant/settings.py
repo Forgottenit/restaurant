@@ -14,9 +14,10 @@ from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
 import dj_database_url
+import sys
 
 if os.path.isfile("env.py"):
-   import env
+    import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +31,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["forgottenit-restaurant.herokuapp.com", "localhost"]
 
@@ -109,9 +110,40 @@ MESSAGE_TAGS = {
 #     }
 # }
 
-DATABASES = {
-   'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-}
+
+# DATABASES = {
+#     'default': dj_database_url.parse(os.environ.get("DATABASE_URL")),
+# }
+
+# if os.environ.get('USE_SQLITE_FOR_TEST') == '1':
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+# else:
+#     DATABASES = {
+#         'default': dj_database_url.parse(os.environ.get("DATABASE_URL")),
+#     }
+
+if 'test' in sys.argv or 'test_command' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL")),
+    }
+
+# DATABASES = {
+#     'default': dj_database_url.parse(os.environ.get("DATABASE_URL")),
+# }
+
+
 
 
 # Password validation
