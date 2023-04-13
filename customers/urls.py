@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import index, about
+from .views import index, about, simulate_500
 from . import views
+
 
 handler403 = views.error_403
 handler404 = views.error_404
@@ -14,4 +15,5 @@ urlpatterns = [
     path('500/', views.error_500, name='error_500'),
     path('trigger-404/', views.trigger_404),
     path('trigger-403/', views.trigger_403),
+    path('simulate-500/', simulate_500, name='simulate_500')
 ]

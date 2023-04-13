@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404, redirect
 from .forms import BookingForm
 from .models import Reservation
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden
+from django.core.exceptions import PermissionDenied
 
 @login_required
 def reservations(request):
@@ -31,7 +31,7 @@ def user_reservations(request):
 def delete_reservation(request, reservation_id):
     reservation = get_object_or_404(Reservation, id=reservation_id)
     if reservation.user != request.user:
-        return HttpResponseForbidden()
+        raise PermissionDenied
     reservation.delete()
     return redirect('user_reservations')
 
@@ -40,7 +40,7 @@ def delete_reservation(request, reservation_id):
 def edit_reservation(request, reservation_id):
     reservation = get_object_or_404(Reservation, id=reservation_id)
     if reservation.user != request.user:
-        return HttpResponseForbidden()
+        raise PermissionDenied
 
     form_errors = ""
     if request.method == 'POST':
