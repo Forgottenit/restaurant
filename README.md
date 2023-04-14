@@ -251,6 +251,7 @@ The message div was then targeted to close after 2.5 Seconds using the set Timeo
 
  - To run the tests I used python3 manage.py test __APP_NAME__ or python3 manage.py test to run all tests.
 ### MANUAL TESTS
+ - DATABASE issue - Make migrations to both databases, debug = TRUE sqlite, otherwise postgres
  - TESTED filling special requests all the way across
  - TESTED errors and displays for errors
  - TESTED links, added if statements to check if user logged in or not
