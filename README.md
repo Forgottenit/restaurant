@@ -256,7 +256,7 @@ The message div was then targeted to close after 2.5 Seconds using the set Timeo
  - TESTED errors and displays for errors
  - TESTED links, added if statements to check if user logged in or not
  - FontAwsome installed in new link as would not work in preinstalled version
- - 
+ - TIMEZONE ISSUES
 
 ## Constraints
 
