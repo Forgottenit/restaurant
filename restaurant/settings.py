@@ -17,8 +17,10 @@ import dj_database_url
 import sys
 from django.conf import settings
 from dotenv import load_dotenv
+import mimetypes
 load_dotenv()
 
+mimetypes.add_type("application/javascript", ".js", True)
 
 if os.path.isfile("env.py"):
     import env

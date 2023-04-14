@@ -13,7 +13,7 @@
 
 
 ## Design
-
+- google maps - api key in env.py 
 
 ### Reservation Form
 
