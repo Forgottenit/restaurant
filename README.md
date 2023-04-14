@@ -265,7 +265,7 @@ The message div was then targeted to close after 2.5 Seconds using the set Timeo
 
 ## Learning
 
-
+collect static! 
 
 ## Future improvements  
 
