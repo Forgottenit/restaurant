@@ -32,7 +32,7 @@ def time_choices(start_hour, end_hour, interval_minutes):
 Possibility to add or Change opening hours (Format is 24hrs, with opening hr,
 closing hr and intervals of availability)
 """
-DINNER_TIME_CHOICES = time_choices(13, 22, 15)
+DINNER_TIME_CHOICES = time_choices(17, 22, 15)
 
 
 class BookingForm(forms.ModelForm):
@@ -47,6 +47,9 @@ class BookingForm(forms.ModelForm):
             MinValueValidator(limit_value=date.today(), message="Booking date cannot be in the past.")
         ]
     )
+
+    # FOR TESTING PURPOSES
+    # test_available_capacity = None
 
     # Display time options as DINNER_TIME_CHOICES as Radio buttons
     time = forms.ChoiceField(choices=DINNER_TIME_CHOICES, widget=RadioSelect)
@@ -72,9 +75,11 @@ class BookingForm(forms.ModelForm):
     Function to calculate total guests for all reservations at a specific
     time and at set intervals
     """
-    def guests_during_booking(self, reservations,
-                              interval_start, interval_end):
-        return sum(
+    def guests_during_booking(self, reservations, interval_start, interval_end):
+        print("Reservations: ", reservations)
+        print("Interval Start: ", interval_start)
+        print("Interval End: ", interval_end)
+        total_guests = sum(
             reservation.party_size
             for reservation in reservations
             if (
@@ -84,9 +89,11 @@ class BookingForm(forms.ModelForm):
                                              reservation.time),
                             timezone.get_current_timezone()
                     )
-                    )
-                ) < interval_end
-            ) and (reservation_start + BOOKING_DURATION > interval_start)
+                )
+            ) < interval_end and (reservation_start + BOOKING_DURATION > interval_start)
+        )
+        print("Total Guests: ", total_guests)
+        return total_guests
 
     # Main validation function for the form
     def clean(self):
@@ -120,15 +127,14 @@ class BookingForm(forms.ModelForm):
             elif input_datetime < now:
                 error_message = "Booking time cannot be in the past."
                 self.add_error('time', error_message)
-
-            # Check if there is enough available capacity for the booking
             else:
                 reservations = Reservation.objects.filter(date=date).exclude(user=user)
 
                 if self.instance.pk is not None:
                     reservations = reservations.exclude(pk=self.instance.pk)
 
-                available_capacity_for_duration = [
+                # Calculate the available capacity for each 15-minute interval during the booking
+                available_capacity = [
                     MAX_CAPACITY - self.guests_during_booking(
                         reservations,
                         (interval_start := input_datetime + timedelta(minutes=15 * i)),
@@ -137,13 +143,15 @@ class BookingForm(forms.ModelForm):
                     for i in range(4)
                 ]
 
-                if all(capacity >= cleaned_data['party_size'] for capacity in available_capacity_for_duration):
+                if all(capacity >= cleaned_data['party_size'] for capacity in available_capacity):
+                    print(available_capacity)
                     return cleaned_data
-                else:
-                    min_available_capacity = min(available_capacity_for_duration)
-                    error_message = f"Booking not available. Maximum available capacity at this time is {min_available_capacity}."
-                    self.add_error('party_size', error_message)
 
-            cleaned_data['error_message'] = error_message
+                else:
+                    min_available_capacity = min(available_capacity)
+                    error_message = f"Booking not available. Maximum available capacity at this time is {min_available_capacity}."
+                    self.add_error('party_size', ValidationError(error_message))
+
+            # cleaned_data['error_message'] = error_message
 
         return cleaned_data

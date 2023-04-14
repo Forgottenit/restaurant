@@ -257,6 +257,7 @@ The message div was then targeted to close after 2.5 Seconds using the set Timeo
  - TESTED links, added if statements to check if user logged in or not
  - FontAwsome installed in new link as would not work in preinstalled version
  - TIMEZONE ISSUES
+ - TESTED CAPACITY, created test booking at set time, i.e. 1pm on 20th April for 48 people, tested they couldn't make another booking themselves that day. Tested another user trying to make a booking at 1pm for 3 people ( This would exceed capacity as capacity is set at 50 people.) Displayed correct error. Also, each booking has a set duration of 1hr. So tested that bookings that would lead to excess capacity were also checked. i.e. If a booking was made at 12.45pm for 3 people, this would also exceed capacity as when the 48 people who had already booked for 1pm came in, capacity would be exceeded. So the latest booking preceeding the 48people at 1pm, would be 12pm, as booking durations are 1hr. Also tested bookings for 1.15pm -1.45pm for 3 people. These all exceeded bookings and displayed what capacity was available, like in the previous errors. Also checked at 2pm where capacity would be zero and booking was accepted. These cases were all tested for edited bookings also, i.e. if someone had a booking for 3pm that day, they couldn't edit it to a time where capacity would be exceeded. Finally, also checked that bookings for 1 or 2 people were accepted at all these times, where capacity would be reached but not exceeded and all worked correctly.
 
 ## Constraints
 
