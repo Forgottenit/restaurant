@@ -6,6 +6,7 @@ from django.core.exceptions import PermissionDenied
 
 @login_required
 def reservations(request):
+    print(f"User CHECK IN VIEWS: {request.user}")
     form_errors = ""
     if request.method == 'POST':
         form = BookingForm(request.POST, user=request.user)
@@ -38,19 +39,20 @@ def delete_reservation(request, reservation_id):
 
 @login_required
 def edit_reservation(request, reservation_id):
+    print(f"User CHECK IN EDIT: {request.user}")
     reservation = get_object_or_404(Reservation, id=reservation_id)
     if reservation.user != request.user:
         raise PermissionDenied
 
     form_errors = ""
     if request.method == 'POST':
-        form = BookingForm(request.POST, instance=reservation)
+        form = BookingForm(request.POST, instance=reservation, user=request.user)
         if form.is_valid():
             form.save()
             return redirect('user_reservations')
         else:
             form_errors = form.errors.as_json()
     else:
-        form = BookingForm(instance=reservation)
+        form = BookingForm(instance=reservation, user=request.user)
 
     return render(request, 'edit_reservation.html', {'form': form, 'form_errors': form_errors})
