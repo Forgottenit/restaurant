@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import menu, staff_menu
+from . import views
 
 urlpatterns = [
-    path('menu/', menu, name='menu'),
-    path('staff_menu/', staff_menu, name='staff_menu'),
+    path('menu/', views.menu, name='menu'),
+    path('staff_menu/', views.staff_menu, name='staff_menu'),
+    path('edit_menu_item/<int:menu_item_id>/', views.edit_menu_item, name='edit_menu_item'),
 ]
-

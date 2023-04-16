@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- {%include menu_content.html%} -->
+<h1>MENU</h1>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Our Menu</h2>
+    <div class="menu">
+        <div class="row">
+            {% for category in categories %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <h3 class="menu-category">{{ category.name }}</h3>
+                <ul class="list-unstyled">
+                    {% for item in items %}
+                    {% if item.category == category %}
+                    <li class="menu-item">
+                        <h5>{{ item.name }}</h5>
+                        <p>{{ item.description }}</p>
+                        <p class="price">€{{ item.price }}</p>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

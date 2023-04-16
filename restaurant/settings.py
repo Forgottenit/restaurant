@@ -17,10 +17,10 @@ import dj_database_url
 import sys
 from django.conf import settings
 from dotenv import load_dotenv
-import mimetypes
+# import mimetypes
 load_dotenv()
 
-mimetypes.add_type("application/javascript", ".js", True)
+# mimetypes.add_type("application/javascript", ".js", True)
 
 if os.path.isfile("env.py"):
     import env
@@ -164,7 +164,7 @@ if 'test' in sys.argv and DEBUG:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-else:
+else: 
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get("DATABASE_URL")),
     }
