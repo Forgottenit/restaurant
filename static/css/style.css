@@ -62,6 +62,69 @@ header {
 }
 
 /* HOME PAGE CSS STYLING */
+
+.carousel-item img {
+    object-fit: cover !important;
+    height: 500px !important;
+    width: 100%;
+}
+
+.accordion-img {
+    object-fit: cover !important;
+    height: 500px !important;
+    width: 100%;
+}
+
+.card-img-top {
+    object-fit: contain;
+    width: 100%;
+}
+
+.multi-image-row {
+    display: none;
+}
+
+.single-image {
+    display: block;
+}
+
+/* Media query for larger screens */
+@media (min-width: 1024px) {
+    .multi-image-row {
+        display: flex;
+    }
+
+    .carousel-item .single-image {
+        display: none;
+    }
+
+    .single-image {
+        display: none;
+    }
+
+    .carousel-item .col {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
+
+    .carousel-item img {
+        object-fit: cover !important;
+        height: 500px !important;
+        width: 100%;
+    }
+
+    .accordion-img {
+        object-fit: cover !important;
+        height: 500px !important;
+        width: 100%;
+    }
+
+    #carouselControls {
+        margin-top: 1rem;
+        /* Adjust this value to change the margin between the carousel and the header */
+    }
+}
+
 body {
     font-family: 'Playfair Display', serif;
     background-color: #f4f1ea;

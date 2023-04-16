@@ -9,28 +9,98 @@
     </div>
 </div>
 
-<!-- Image Carousel -->
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+<div id="carouselControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
     <div class="carousel-inner">
+        <!-- First images -->
         <div class="carousel-item active">
-            <img src="{% static 'images/myimage.jpg' %}" class="d-block w-100" alt="...">
+            <div class="d-lg-none d-xl-none">
+                <img src="{% static 'images/front_2.jpg' %}" class="d-block w-100 carousel-image single-image"
+                    alt="Front of Restaurant">
+            </div>>
+            <div class="row multi-image-row">
+                <div class="col">
+                    <img src="{% static 'images/front_2.jpg' %}" class="d-block w-100 carousel-image"
+                        alt="Front of Restaurant">
+                </div>
+                <div class="col">
+                    <img src="{% static 'images/back_2.jpg' %}" class="d-block w-100 carousel-image" alt="Image 2">
+                </div>
+                <div class="col">
+                    <img src="{% static 'images/back_2.jpg' %}" class="d-block w-100 carousel-image" alt="Image 3">
+                </div>
+            </div>
         </div>
+        <!-- Second images -->
         <div class="carousel-item">
-            <img src="{% static 'images/myimage.jpg' %}" class="d-block w-100" alt="...">
+            <div class="d-none d-xl-none">
+                <img src="{% static 'images/back_2.jpg' %}" class="d-block w-100 carousel-image single-image "
+                    alt="Back of Restaurant">
+            </div>
+            <div class="row multi-image-row">
+                <div class="col">
+                    <img src="{% static 'images/back_2.jpg' %}" class="d-block w-100 carousel-image"
+                        alt="Back of Restaurant">
+                </div>
+                <div class="col">
+                    <img src="{% static 'images/back_2.jpg' %}" class="d-block w-100 carousel-image" alt="Image 5">
+                </div>
+                <div class="col">
+                    <img src="{% static 'images/back_2.jpg' %}" class="d-block w-100 carousel-image" alt="Image 6">
+                </div>
+            </div>
         </div>
+        <!-- Third images -->
         <div class="carousel-item">
-            <img src="{% static 'images/myimage.jpg' %}" class="d-block w-100" alt="...">
+            <div class="d-lg-none d-xl-none">
+                <img src="{% static 'images/candles.jpg' %}" class="d-block w-100 carousel-image single-image "
+                    alt="Fireplace">
+            </div>
+            <div class="row multi-image-row">
+                <div class="col">
+                    <img src="{% static 'images/candles.jpg' %}" class="d-block w-100 carousel-image" alt="Fireplace">
+                </div>
+                <div class="col">
+                    <img src="{% static 'images/front_2.jpg' %}" class="d-block w-100 carousel-image" alt="Image 8">
+                </div>
+                <div class="col">
+                    <img src="{% static 'images/front_2.jpg' %}" class="d-block w-100 carousel-image" alt="Image 9">
+                </div>
+            </div>
         </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+
+<!-- Image Carousel -->
+<!-- <div id="carouselControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{% static 'images/front_2.jpg' %}" class="d-block w-100 carousel-image" alt="Front of Restaurant">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'images/back_2.jpg' %}" class="d-block w-100 carousel-image" alt="Back of Restaurant">
+
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'images/candles.jpg' %}" class="d-block w-100 carousel-image" alt="Fireplace">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div> -->
 
 <!-- Menu Highlights -->
 <div class="container mt-5">
@@ -38,7 +108,7 @@
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col">
             <div class="card h-100">
-                <img src="{% static 'images/myimage.jpg' %}" class="card-img-top" alt="...">
+                <img src="{% static 'images/dinner_1.jpg' %}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Dish 1</h5>
                     <p class="card-text">Description of this speciality.</p>
@@ -47,7 +117,7 @@
         </div>
         <div class="col">
             <div class="card h-100">
-                <img src="{% static 'images/myimage.jpg' %}" class="card-img-top" alt="...">
+                <img src="{% static 'images/dinner_3.jpg' %}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Dish 2</h5>
                     <p class="card-text">Description of this speciality..</p>
@@ -56,7 +126,7 @@
         </div>
         <div class="col">
             <div class="card h-100">
-                <img src="{% static 'images/myimage.jpg' %}" class="card-img-top" alt="...">
+                <img src="{% static 'images/dessert.jpg' %}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Dish 3</h5>
                     <p class="card-text">Description of this speciality.</p>
@@ -81,7 +151,8 @@
             <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
                 data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
-                    <img src="{% static 'images/myimage.jpg' %}" class="img-fluid mb-3" alt="Fresh Ingredients">
+                    <img src="{% static 'images/field_2.jpg' %}" class="img-fluid mb-3 accordion-img"
+                        alt="Fresh Ingredients">
                     We are committed to using only the freshest ingredients in our dishes, ensuring the highest quality
                     and flavor for our customers.
                 </div>
@@ -98,7 +169,8 @@
             <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
                 data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
-                    <img src="{% static 'images/myimage.jpg' %}" class="img-fluid mb-3" alt="Exceptional Service">
+                    <img src="{% static 'images/staff_1.jpg' %}" class="img-fluid mb-3 accordion-img"
+                        alt="Exceptional Service">
                     Our staff is dedicated to providing exceptional service to every guest, making your dining
                     experience memorable and enjoyable.
                 </div>
@@ -115,7 +187,8 @@
             <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
                 data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
-                    <img src="{% static 'images/myimage.jpg' %}" class="img-fluid mb-3" alt="Unique Atmosphere">
+                    <img src="{% static 'images/restaurant_outside.jpg' %}" class="img-fluid mb-3 accordion-img"
+                        alt="Unique Atmosphere">
                     Our restaurant offers a unique and inviting atmosphere, perfect for a romantic dinner or a gathering
                     with friends and family.
                 </div>
@@ -126,10 +199,10 @@
 
 
 <!-- Reviews -->
-<div class="container mt-5">
+<!-- <div class="container mt-5">
     <h2 class="text-center mb-4">Customer Reviews&emsp;<i class="fa-solid fa-star"></i></h2>
     <div class="row row-cols-1 row-cols-md-2 g-4">
-        <!-- Review 1 -->
+        
         <div class="col">
             <div class="card">
                 <img src="{% static 'images/myimage.jpg' %}" class="card-img-top" alt="Review 1">
@@ -140,7 +213,7 @@
                 </div>
             </div>
         </div>
-        <!-- Review 2 -->
+        
         <div class="col">
             <div class="card">
                 <img src="{% static 'images/myimage.jpg' %}" class="card-img-top" alt="Review 2">
@@ -151,7 +224,7 @@
                 </div>
             </div>
         </div>
-        <!-- Review 3 -->
+        
         <div class="col">
             <div class="card">
                 <img src="{% static 'images/myimage.jpg' %}" class="card-img-top" alt="Review 3">
@@ -162,7 +235,7 @@
                 </div>
             </div>
         </div>
-        <!-- Review 4 -->
+        
         <div class="col">
             <div class="card">
                 <img src="{% static 'images/myimage.jpg' %}" class="card-img-top" alt="Review 4">
@@ -174,15 +247,16 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- Google Maps -->
 
-
 <div class="container mt-5">
-    <div id="map" style="height: 400px; width: 100%;"></div>
+    <h2 class="text-center mb-4">Where to Find Us &emsp;<i class="fa-solid fa-question"></i></h2>
+    <div class="container mt-5">
+        <div id="map" style="height: 400px; width: 100%;"></div>
+    </div>
 </div>
-
 <!-- Links to other sections -->
 
 
