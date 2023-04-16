@@ -51,6 +51,7 @@ DEBUG = os.environ.get("DEVELOPMENT")
 ALLOWED_HOSTS = ["forgottenit-restaurant.herokuapp.com", "localhost"]
 
 
+
 # Application definition
 
 INSTALLED_APPS = [

@@ -227,6 +227,28 @@ The message div was then targeted to close after 2.5 Seconds using the set Timeo
 - Then create a "Super User" who has Admin priveledges by typing:
     - python manage.py createsuperuser into the CLI and follow the prompts
 
+### Create Staff User 
+
+- PURPOSE: To allow staff to add menu items, view add, edit and delete bookings.
+- Go to the Users section in the admin panel (click "Change" next to "Users" under "AUTHENTICATION AND AUTHORIZATION").
+- Click on "Add User" in the top right corner to create a new user, or click on an existing user to edit their details.
+- Fill in the required fields (username, password, etc.) and check the "Staff status" checkbox to grant the user staff permissions. 
+- Click "Save" to create or update the user with staff status.
+
+### Create Staff Group and Permissions
+- On Admin Panel, in the top left corner click Groups.
+- Type the name of the Group you want to create and click Add Group in the top right. (Be careful naming the Group, for example, Django has a method to check Staff Status, is_staff, so naming it something more unique may be less confusing, i.e. "RestaurantStaff" etc.)
+- Select the permissions you want to give the group, these will depend on the apps you have created
+- Click Save
+
+
+- You then need to add the Users you want to this group:
+ - Go back to the Admin home page
+ - Click Users in the top left, then select the user you want to add to a group
+ - Scroll down to the groups section, select the Group and click the arrow right to add to Chosen Groups Box
+ - Save Changes.
+ - Note that Admin has all permissions, though if you are creating unique templates for staff, you could add the admin to the new group, or in views, check if user is "Group name or superuser", both options may have their advantages, but I chose to keep them separate. Also, permissions are additive, in that, if admin is added, it doesn't lose permissions that are not included in the new group, so Users could be members of multiple groups, i.e. Waiters, Chefs etc. in the case of this project. 
+
 ## Technology used
 
 1. GitPod for writing the code

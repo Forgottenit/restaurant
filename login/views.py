@@ -3,6 +3,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib import messages
 
+def is_staffteam_or_admin(user):
+    return user.groups.filter(name='StaffTeam').exists() or user.is_superuser
+
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -23,9 +26,11 @@ def login_view(request):
         if form.is_valid():
             login(request, form.get_user())
             messages.success(request, 'You are now logged in.')
-            return redirect('reservations')
-        else:
-            messages.error(request, 'Invalid username or password. Please try again.')
+            
+            if is_staffteam_or_admin(request.user):
+                return redirect('menu')
+            else:
+                return redirect('reservations')
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})

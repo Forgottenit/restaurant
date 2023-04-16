@@ -40,6 +40,11 @@
                     <span class="navbar-text me-3 text-white">Welcome, {{ user.username }}</span>
                     <a class="btn btn-outline-light logout-btn" href="{% url 'logout' %}">Logout</a>
                 </div>
+                {% else %}
+                <div class="d-flex">
+                    <span class="navbar-text me-3 text-white"></span>
+                    <a class="btn btn-outline-light logout-btn" href="{% url 'login' %}">Login</a>
+                </div>
                 {% endif %}
             </div>
         </div>
