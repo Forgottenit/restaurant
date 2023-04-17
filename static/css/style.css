@@ -526,7 +526,7 @@ h1 {
 
 
 .table td {
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
     hyphens: auto;
@@ -555,7 +555,7 @@ h1 {
 }
 
 
-/* Edit and Delete Reservation buttons */
+/* Edit and Delete buttons */
 .btn-edit,
 .btn-delete {
     font-weight: 700;
