@@ -1,0 +1,59 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">Our Restaurant</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link{% if request.resolver_match.url_name == 'index' %} active{% endif %}"
+                            href="{% url 'index' %}">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link{% if request.resolver_match.url_name == 'menu' %} active{% endif %}"
+                            href="{% url 'menu' %}">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        {% if user.is_authenticated %}
+                    <li class="nav-item"></li>
+                    <a class="nav-link{% if request.resolver_match.url_name == 'reservations'  %} active{% endif %}"
+                        href="{% url 'reservations' %}">Reservations</a></li>
+                    <li class="nav-item"> <a
+                            class="nav-link{% if request.resolver_match.url_name == 'user_reservations' %} active{% endif %}"
+                            href="{% url 'user_reservations' %}">My Reservations</a></li>
+                    {% else %}
+                    <li class="nav-item"></li>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'login'  %} active{% endif %}"
+                        href="{% url 'login' %}">Reservations</a></li>
+                    {% endif %}
+                    </li>
+                </ul>
+                {% if user.is_authenticated %}
+                <div class="d-flex">
+                    <span class="navbar-text me-3 text-white">Welcome, {{ user.username }}</span>
+                    <a class="btn btn-outline-light nav-logout-btn" href="{% url 'logout' %}">Logout</a>
+                </div>
+                {% else %}
+                <div class="d-flex">
+                    <span class="navbar-text me-3 text-white"></span>
+
+                    <a class="btn btn-outline-light nav-login-btn " id="nav-login-btn-id"
+                        href="{% url 'login' %}">Login</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    {% if request.resolver_match.url_name == 'login' %}
+    <script>
+        document.getElementById('nav-login-btn-id').addEventListener('click', function (event) {
+            event.preventDefault();
+            document.querySelector('.login-btn').click();
+        });
+    </script>
+    {% endif %}
+</header>

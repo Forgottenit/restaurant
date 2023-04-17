@@ -12,13 +12,6 @@ def menu(request):
     categories = MenuCategory.objects.all()
     return render(request, 'menu.html', {'items': items, 'categories': categories})
 
-
-@user_passes_test(is_staffteam_or_admin)
-def staff_menu(request):
-    items = MenuItem.objects.all()
-    return render(request, 'staff_templates/staff_menu.html', {'items': items})
-
-
 @user_passes_test(is_staffteam_or_admin)
 def edit_menu_item(request, menu_item_id):
     item = get_object_or_404(MenuItem, pk=menu_item_id)

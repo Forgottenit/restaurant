@@ -38,21 +38,21 @@ DINNER_TIME_CHOICES = time_choices(17, 22, 15)
 class BookingForm(forms.ModelForm):
 
     # Max booking capacity for each booking set to 6
-    party_size = forms.IntegerField(min_value=1, max_value=6)
+    party_size = forms.IntegerField(min_value=1, max_value=6, help_text="Enter the number of guests (1 to 6).")
 
      # Add a MinValueValidator to date field to ensure the selected date is not in the past
     date = forms.DateField(
         widget=DateInput(attrs={'type': 'date'}),
         validators=[
             MinValueValidator(limit_value=date.today(), message="Booking date cannot be in the past.")
-        ]
+        ], help_text="Select a date for your reservation."
     )
 
     # FOR TESTING PURPOSES
     # test_available_capacity = None
 
     # Display time options as DINNER_TIME_CHOICES as Radio buttons
-    time = forms.ChoiceField(choices=DINNER_TIME_CHOICES, widget=RadioSelect)
+    time = forms.ChoiceField(choices=DINNER_TIME_CHOICES, widget=RadioSelect, help_text="Choose a time for your reservation.")
 
 
     def __init__(self, *args, **kwargs):

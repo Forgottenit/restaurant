@@ -51,10 +51,16 @@ header {
     font-size: 19px !important;
 }
 
-.logout-btn {
+.nav-logout-btn,
+.nav-login-btn {
     color: #000000;
     border-color: #000000;
     background-color: #f8f9fa;
+    width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 40px;
 }
 
 /* FOOTER STYLING */
@@ -252,7 +258,9 @@ h1 {
 /* SIGN UP/ LOGIN CSS STYLING */
 
 .signup,
-.login {
+.login,
+.nav-login-btn,
+.nav-logout-btn {
     display: flex;
     justify-content: center;
     text-align: center;
@@ -360,20 +368,21 @@ h1 {
 .login-btn:hover {
     background-color: #0069d9;
     border-color: #0062cc;
+    color: #fff;
 }
 
 /* Sign Up Button */
 .signup-btn {
-    background-color: #000000;
+    background-color: rgb(168 0 255 / 25%);
     border-color: #2c2d2c;
     color: #fff;
 }
 
 .signup-btn:hover {
-    background-color: #dbdddb;
+    background-color: rgb(213 142 250 / 25%);
     border-color: #000000;
     color: #000000;
-    font-weight: 700;
+
 }
 
 /* RESERVATION FORM STYLING */
@@ -446,7 +455,7 @@ h1 {
     font-weight: bold;
     color: #333;
     background-color: #fff;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23a0a0a0' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-image: none;
     background-repeat: no-repeat;
     background-position: calc(100% - 10px) center;
     -webkit-appearance: none;

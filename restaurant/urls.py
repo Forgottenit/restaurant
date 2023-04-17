@@ -22,6 +22,6 @@ urlpatterns = [
     path("", include("reservations.urls"), name="reservations_urls"),
     path("", include("customers.urls"), name="customers_urls"),
     path("", include("login.urls"), name="signup_urls"),
-    
+    path("", include("staff.urls"), name="staff_urls"),
 
 ]

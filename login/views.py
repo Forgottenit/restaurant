@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib import messages
 
+
+
 def is_staffteam_or_admin(user):
     return user.groups.filter(name='StaffTeam').exists() or user.is_superuser
 

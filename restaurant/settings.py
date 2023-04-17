@@ -24,6 +24,11 @@ load_dotenv()
 
 if os.path.isfile("env.py"):
     import env
+# Log off after 30 mins of inactivity
+SESSION_COOKIE_AGE = 30 * 60
+
+# Log off if browser closed
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -96,7 +101,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.static',
                 'django.contrib.messages.context_processors.messages',
-                'restaurant.settings.custom_context_processor',
+                'staff.context_processors.staff_permissions'
+
             ],
         },
     },

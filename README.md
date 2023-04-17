@@ -14,7 +14,14 @@
 
 ## Design
 - google maps - api key in env.py 
+- help_text and headings using forms and models for styling consistant headings, errors and help_text
+# Log off after 30 mins of inactivity
+SESSION_COOKIE_AGE = 30 * 60
 
+# Log off if browser closed
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+Login button on login page
 ### Reservation Form
 
 - Radio Tags, targeted by Javascript to stay coloured when selected

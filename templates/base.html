@@ -23,7 +23,24 @@
 
 <body>
     <!-- Header -->
-    {% include 'nav_bar.html' %}
+
+    {% if is_staffteam_or_admin %}
+    {% include 'staff_templates/staff_navbar.html' %}
+    {% else %}
+    {% include 'navbar.html' %}
+    {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- Django Alert Messages -->
 

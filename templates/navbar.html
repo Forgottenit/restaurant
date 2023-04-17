@@ -38,15 +38,25 @@
                 {% if user.is_authenticated %}
                 <div class="d-flex">
                     <span class="navbar-text me-3 text-white">Welcome, {{ user.username }}</span>
-                    <a class="btn btn-outline-light logout-btn" href="{% url 'logout' %}">Logout</a>
+                    <a class="btn btn-outline-light nav-logout-btn" href="{% url 'logout' %}">Logout</a>
                 </div>
                 {% else %}
                 <div class="d-flex">
                     <span class="navbar-text me-3 text-white"></span>
-                    <a class="btn btn-outline-light logout-btn" href="{% url 'login' %}">Login</a>
+
+                    <a class="btn btn-outline-light nav-login-btn " id="nav-login-btn-id"
+                        href="{% url 'login' %}">Login</a>
                 </div>
                 {% endif %}
             </div>
         </div>
     </nav>
+    {% if request.resolver_match.url_name == 'login' %}
+    <script>
+        document.getElementById('nav-login-btn-id').addEventListener('click', function (event) {
+            event.preventDefault();
+            document.querySelector('.login-btn').click();
+        });
+    </script>
+    {% endif %}
 </header>
