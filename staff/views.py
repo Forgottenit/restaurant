@@ -9,6 +9,7 @@ from django.shortcuts import render
 def is_staffteam_or_admin(user):
     return user.groups.filter(name='StaffTeam').exists() or user.is_superuser
 
+@user_passes_test(is_staffteam_or_admin)
 def staff_menu(request):
     items = MenuItem.objects.all()
     context = {

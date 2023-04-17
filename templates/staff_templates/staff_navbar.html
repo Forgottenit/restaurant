@@ -15,7 +15,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link{% if request.resolver_match.url_name == 'menu' %} active{% endif %}"
-                            href="{% url 'menu' %}">Menu</a>
+                            href="{% url 'staff_menu' %}">Menu</a>
                     </li>
                     <li class="nav-item">
                         {% if user.is_authenticated %}

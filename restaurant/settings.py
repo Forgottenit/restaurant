@@ -17,10 +17,10 @@ import dj_database_url
 import sys
 from django.conf import settings
 from dotenv import load_dotenv
-# import mimetypes
+import mimetypes
 load_dotenv()
 
-# mimetypes.add_type("application/javascript", ".js", True)
+mimetypes.add_type("application/javascript", ".js", True)
 
 if os.path.isfile("env.py"):
     import env
@@ -101,6 +101,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.static',
                 'django.contrib.messages.context_processors.messages',
+                'restaurant.settings.custom_context_processor',
                 'staff.context_processors.staff_permissions'
 
             ],

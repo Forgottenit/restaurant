@@ -83,6 +83,14 @@ header {
     width: 100%;
 }
 
+.carousel-item {
+    line-height: 0 !important;
+}
+
+.carousel-item:first-of-type {
+    margin-top: 0 !important;
+}
+
 .accordion-img {
     object-fit: cover !important;
     height: 500px !important;
@@ -96,6 +104,7 @@ header {
 
 .multi-image-row {
     display: none;
+    line-height: 0 !important;
 }
 
 .single-image {
@@ -113,6 +122,7 @@ header {
 @media (min-width: 1024px) {
     .multi-image-row {
         display: flex;
+        line-height: 0 !important;
     }
 
     .carousel-item .single-image {
