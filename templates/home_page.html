@@ -19,11 +19,11 @@
             </div>>
             <div class="row multi-image-row">
                 <div class="col">
-                    <img src="{% static 'images/front_2.jpg' %}" class="d-block w-100 carousel-image"
+                    <img src="{% static 'images/candles.jpg' %}" class="d-block w-100 carousel-image"
                         alt="Front of Restaurant">
                 </div>
                 <div class="col">
-                    <img src="{% static 'images/back_2.jpg' %}" class="d-block w-100 carousel-image" alt="Image 2">
+                    <img src="{% static 'images/front_2.jpg' %}" class="d-block w-100 carousel-image" alt="Image 2">
                 </div>
                 <div class="col">
                     <img src="{% static 'images/back_2.jpg' %}" class="d-block w-100 carousel-image" alt="Image 3">
@@ -38,14 +38,15 @@
             </div>
             <div class="row multi-image-row">
                 <div class="col">
-                    <img src="{% static 'images/back_2.jpg' %}" class="d-block w-100 carousel-image"
+                    <img src="{% static 'images/inside_1.jpg' %}" class="d-block w-100 carousel-image"
                         alt="Back of Restaurant">
                 </div>
                 <div class="col">
-                    <img src="{% static 'images/back_2.jpg' %}" class="d-block w-100 carousel-image" alt="Image 5">
+                    <img src="{% static 'images/long_tables.jpg' %}" class="d-block w-100 carousel-image" alt="Image 5">
                 </div>
                 <div class="col">
-                    <img src="{% static 'images/back_2.jpg' %}" class="d-block w-100 carousel-image" alt="Image 6">
+                    <img src="{% static 'images/single_table.jpg' %}" class="d-block w-100 carousel-image"
+                        alt="Image 6">
                 </div>
             </div>
         </div>
@@ -57,13 +58,13 @@
             </div>
             <div class="row multi-image-row">
                 <div class="col">
-                    <img src="{% static 'images/candles.jpg' %}" class="d-block w-100 carousel-image" alt="Fireplace">
+                    <img src="{% static 'images/inside_2.jpg' %}" class="d-block w-100 carousel-image" alt="Fireplace">
                 </div>
                 <div class="col">
-                    <img src="{% static 'images/front_2.jpg' %}" class="d-block w-100 carousel-image" alt="Image 8">
+                    <img src="{% static 'images/dessert.jpg' %}" class="d-block w-100 carousel-image" alt="Image 8">
                 </div>
                 <div class="col">
-                    <img src="{% static 'images/front_2.jpg' %}" class="d-block w-100 carousel-image" alt="Image 9">
+                    <img src="{% static 'images/menu.jpg' %}" class="d-block w-100 carousel-image" alt="Image 9">
                 </div>
             </div>
         </div>
@@ -126,7 +127,7 @@
         </div>
         <div class="col">
             <div class="card h-100">
-                <img src="{% static 'images/dessert.jpg' %}" class="card-img-top" alt="...">
+                <img src="{% static 'images/dinner_2.jpg' %}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Dish 3</h5>
                     <p class="card-text">Description of this speciality.</p>
@@ -169,7 +170,7 @@
             <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
                 data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
-                    <img src="{% static 'images/staff_1.jpg' %}" class="img-fluid mb-3 accordion-img"
+                    <img src="{% static 'images/staff_3.jpg' %}" class="img-fluid mb-3 accordion-img"
                         alt="Exceptional Service">
                     Our staff is dedicated to providing exceptional service to every guest, making your dining
                     experience memorable and enjoyable.
@@ -187,7 +188,7 @@
             <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
                 data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
-                    <img src="{% static 'images/restaurant_outside.jpg' %}" class="img-fluid mb-3 accordion-img"
+                    <img src="{% static 'images/cocktail_2.jpg' %}" class="img-fluid mb-3 accordion-img"
                         alt="Unique Atmosphere">
                     Our restaurant offers a unique and inviting atmosphere, perfect for a romantic dinner or a gathering
                     with friends and family.
@@ -268,7 +269,7 @@
                 <div class="card-body">
                     <h5 class="card-title">About Us</h5>
                     <p class="card-text">Learn more about our story and our commitment to great food.</p>
-                    <a href="{% url 'about' %}" class="btn btn-primary">Visit About Page</a>
+                    <a href="{% url 'about' %}" class="btn btn-primary">About Us</a>
                 </div>
             </div>
         </div>
@@ -278,7 +279,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Our Menu</h5>
                     <p class="card-text">Discover our delicious menu full of mouth-watering dishes.</p>
-                    <a href="{% url 'menu' %}" class="btn btn-primary">Visit Menu Page</a>
+                    <a href="{% url 'menu' %}" class="btn btn-primary">Menu</a>
                 </div>
             </div>
         </div>
@@ -289,9 +290,9 @@
                     <h5 class="card-title">Reservations</h5>
                     <p class="card-text">Book a table for a memorable dining experience.</p>
                     {% if user.is_authenticated %}
-                    <a href="{% url 'reservations' %}" class="btn btn-primary">Visit Reservations Page</a>
+                    <a href="{% url 'reservations' %}" class="btn btn-primary">Reservations</a>
                     {%else%}
-                    <a href="{% url 'login' %}" class="btn btn-primary">Visit Reservations Page</a>
+                    <a href="{% url 'login' %}" class="btn btn-primary">Reservations</a>
                     {%endif%}
                 </div>
             </div>
