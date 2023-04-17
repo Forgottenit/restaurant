@@ -3,6 +3,10 @@ from .forms import BookingForm
 from .models import Reservation
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import user_passes_test
+
+def is_staffteam_or_admin(user):
+    return user.groups.filter(name='StaffTeam').exists() or user.is_superuser
 
 @login_required
 def reservations(request):
@@ -31,17 +35,19 @@ def user_reservations(request):
 @login_required
 def delete_reservation(request, reservation_id):
     reservation = get_object_or_404(Reservation, id=reservation_id)
-    if reservation.user != request.user:
+    if not (reservation.user == request.user or is_staffteam_or_admin(request.user)):
         raise PermissionDenied
     reservation.delete()
-    return redirect('user_reservations')
-
+    if is_staffteam_or_admin(request.user):
+        return redirect('all_reservations')
+    else:
+        return redirect('user_reservations')
 
 @login_required
 def edit_reservation(request, reservation_id):
     print(f"User CHECK IN EDIT: {request.user}")
     reservation = get_object_or_404(Reservation, id=reservation_id)
-    if reservation.user != request.user:
+    if not (reservation.user == request.user or is_staffteam_or_admin(request.user)):
         raise PermissionDenied
 
     form_errors = ""
@@ -49,7 +55,10 @@ def edit_reservation(request, reservation_id):
         form = BookingForm(request.POST, instance=reservation, user=request.user)
         if form.is_valid():
             form.save()
-            return redirect('user_reservations')
+            if is_staffteam_or_admin(request.user):
+                return redirect('all_reservations')
+            else:
+                return redirect('user_reservations')
         else:
             form_errors = form.errors.as_json()
     else:

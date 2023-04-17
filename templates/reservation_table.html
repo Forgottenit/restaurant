@@ -27,6 +27,7 @@
         <td data-label="Status:">{{ reservation.status }}</td>
         <td data-label="Created On:">{{ reservation.created_on }}</td>
         <td class="action-buttons">
+
             <div class="btn-group d-flex">
                 <a href="#" data-reservation-id="{{ reservation.id }}"
                     data-delete-url="{% url 'delete_reservation' reservation_id=reservation.id %}"

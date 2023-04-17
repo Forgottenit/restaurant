@@ -9,6 +9,9 @@ from reservations.models import Reservation
 from datetime import date
 from django.utils import timezone
 from datetime import timedelta
+from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import user_passes_test
+from reservations.forms import BookingForm
 
 def is_staffteam_or_admin(user):
     return user.groups.filter(name='StaffTeam').exists() or user.is_superuser
@@ -50,3 +53,4 @@ def all_reservations(request):
         'past_reservations': past_reservations,
     }
     return render(request, 'staff_templates/all_reservations.html', context)
+
