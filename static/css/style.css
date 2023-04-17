@@ -312,6 +312,13 @@ h1 {
 }
 
 /* Button styles */
+.reservation-btn {
+    border: 1px solid #e9ecef;
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+}
+
 .btn-auth {
     background-color: #007bff;
     border-color: #007bff;
@@ -396,6 +403,12 @@ h1 {
 }
 
 /* RESERVATION FORM STYLING */
+
+.reservation-card-header {
+    background-color: #1C2331;
+    color: white;
+}
+
 .btn-submit {
     background-color: #e5dbc5;
     border-color: #e5dbc5;
@@ -541,8 +554,15 @@ h1 {
     color: #000;
 }
 
-/* SUCCESSFUL BOOKING CSS */
+/* BOOKINGS CSS */
 
+.month-card-header {
+    margin: 2px auto;
+    background-color: #1C2331;
+    color: white;
+
+
+}
 
 .table td {
     overflow-wrap: break-word;

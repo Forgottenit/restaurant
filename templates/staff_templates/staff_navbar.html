@@ -21,7 +21,7 @@
                         {% if user.is_authenticated %}
                     <li class="nav-item"></li>
                     <a class="nav-link{% if request.resolver_match.url_name == 'reservations'  %} active{% endif %}"
-                        href="{% url 'reservations' %}">Reservations</a></li>
+                        href="{% url 'all_reservations' %}">Reservations</a></li>
                     <li class="nav-item"> <a
                             class="nav-link{% if request.resolver_match.url_name == 'user_reservations' %} active{% endif %}"
                             href="{% url 'user_reservations' %}">My Reservations</a></li>
