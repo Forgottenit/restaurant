@@ -197,14 +197,14 @@ h2 {
     font-size: 1.5rem;
 }
 
-.btn-primary {
+.homepage-btn-primary {
     background-color: #a66532;
     border-color: #a66532;
 }
 
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active {
+.homepage-btn-primary:hover,
+.homepage-btn-primary:focus,
+.homepage-btn-primary:active {
     background-color: #8a5529;
     border-color: #8a5529;
 }
@@ -312,6 +312,75 @@ h1 {
 }
 
 /* Button styles */
+.edit-menu-btn,
+.delete-menu-btn {
+    color: #fff;
+
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.edit-menu-btn {
+    background-color: #499cf5;
+    border-color: #007bff;
+}
+
+.delete-menu-btn {
+    background-color: #e78585;
+    border-color: #fa6a6a;
+}
+
+.edit-menu-btn:hover,
+.delete-menu-btn:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.edit-menu-btn:focus,
+.delete-menu-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.delete-menu-btn {
+    margin-left: 0.5rem;
+}
+
+.delete-menu-btn:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.add-menu-item {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    margin: 5px;
+}
+
+.add-reservation-btn {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.add-reservation-btn:hover {
+    background-color: #0062cc;
+    color: #fff;
+    text-decoration: none;
+}
+
 .reservation-btn {
     border: 1px solid #e9ecef;
     font-size: 18px;

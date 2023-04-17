@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // Show the custom modal when the cancel reservation button is clicked
-    $('.delete-menu-item').click(function (e) {
+    $('.delete-menu-btn').click(function (e) {
         e.preventDefault();
         let deleteUrl = $(this).data('delete-url');
 

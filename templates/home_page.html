@@ -270,7 +270,7 @@
                 <div class="card-body">
                     <h5 class="card-title">About Us</h5>
                     <p class="card-text">Learn more about our story and our commitment to great food.</p>
-                    <a href="{% url 'about' %}" class="btn btn-primary">About Us</a>
+                    <a href="{% url 'about' %}" class="btn homepage-btn-primary">About Us</a>
                 </div>
             </div>
         </div>
@@ -280,7 +280,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Our Menu</h5>
                     <p class="card-text">Discover our delicious menu full of mouth-watering dishes.</p>
-                    <a href="{% url 'menu' %}" class="btn btn-primary">Menu</a>
+                    <a href="{% url 'menu' %}" class="btn homepage-btn-primary">Menu</a>
                 </div>
             </div>
         </div>
@@ -291,9 +291,9 @@
                     <h5 class="card-title">Reservations</h5>
                     <p class="card-text">Book a table for a memorable dining experience.</p>
                     {% if user.is_authenticated %}
-                    <a href="{% url 'reservations' %}" class="btn btn-primary">Reservations</a>
+                    <a href="{% url 'reservations' %}" class="btn homepage-btn-primary">Reservations</a>
                     {%else%}
-                    <a href="{% url 'login' %}" class="btn btn-primary">Reservations</a>
+                    <a href="{% url 'login' %}" class="btn homepage-btn-primary">Reservations</a>
                     {%endif%}
                 </div>
             </div>

@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseNotFound, HttpResponseForbidden
 import os
 from django.conf import settings
-from menu.models import MenuItem
+from menu.models import MenuItem, MenuCategory
 from django.shortcuts import render
 from reservations.models import Reservation
 from datetime import date
@@ -12,16 +12,19 @@ from datetime import timedelta
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import user_passes_test
 from reservations.forms import BookingForm
+from django.db.models import Prefetch
+
 
 def is_staffteam_or_admin(user):
     return user.groups.filter(name='StaffTeam').exists() or user.is_superuser
 
+
 @user_passes_test(is_staffteam_or_admin)
 def staff_menu(request):
-    items = MenuItem.objects.all()
-    context = {
-        'items': items,
-    }
+    categories = MenuCategory.objects.all().prefetch_related(
+        Prefetch('menuitem_set', queryset=MenuItem.objects.all().order_by('name'))
+    )
+    context = {'categories': categories}
     return render(request, 'staff_templates/staff_menu.html', context)
 
 

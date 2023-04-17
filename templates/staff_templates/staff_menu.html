@@ -3,40 +3,58 @@
 {% block content %}
 <div class="container mt-5">
     <h2 class="text-center mb-4">Staff Menu</h2>
-    <div class="menu">
-        {% include 'menu_content.html' %}
+    <div class="accordion" id="menu-accordion">
+        {% for category in categories %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="category-{{ category.pk }}-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#category-{{ category.pk }}-collapse" aria-expanded="false"
+                    aria-controls="category-{{ category.pk }}-collapse">
+                    {{ category.name }}
+                </button>
+            </h2>
+            <div id="category-{{ category.pk }}-collapse" class="accordion-collapse collapse"
+                aria-labelledby="category-{{ category.pk }}-header" data-bs-parent="#menu-accordion">
+                <div class="accordion-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in category.menuitem_set.all %}
+                            <tr>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.description }}</td>
+                                <td>€{{ item.price }}</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="{% url 'edit_menu_item' item.pk %}"
+                                            class="btn btn-outline-secondary edit-menu-btn">Edit</a>
+                                        <a href="{% url 'delete_menu_item' item.pk %}"
+                                            class="btn btn-outline-secondary delete-menu-btn"
+                                            data-delete-url="{% url 'delete_menu_item' item.pk %}">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4">No menu items in this category.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    <table class="table mt-4">
-        <thead>
-            <tr>
-                <th>Category</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in items %}
-            <tr>
-                <td data-label="Category:">{{ item.category }}</td>
-                <td data-label="Name:">{{ item.name }}</td>
-                <td data-label="Description:">{{ item.description }}</td>
-                <td data-label="Price:" class="price">€{{ item.price }}</td>
-                <td>
-                    <div class="btn-group d-flex">
-                        <a href="{% url 'edit_menu_item' item.id %}" class="btn btn-edit">Edit</a>
-                        <a href="{% url 'delete_menu_item' item.id %}" class="btn btn-delete delete-menu-item"
-                            data-delete-url="{% url 'delete_menu_item' item.id %}">Delete</a>
-                    </div>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
     <div class="text-center mt-4">
-        <a href="{% url 'create_menu_item' %}" class="btn btn-primary">Add New Menu Item</a>
-
+        <a href="{% url 'create_menu_item' %}" class="btn add-menu-item">Add New Menu Item</a>
     </div>
 </div>
 {% endblock %}
