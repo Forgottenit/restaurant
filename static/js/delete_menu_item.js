@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    // Show the custom modal when the cancel reservation button is clicked
+    // Show the custom modal when the button is clicked
     $('.delete-menu-btn').click(function (e) {
         e.preventDefault();
         let deleteUrl = $(this).data('delete-url');
@@ -10,7 +10,7 @@ $(document).ready(function () {
             actionText: 'Confirm Deletion',
             actionClass: 'btn-danger',
             actionCallback: function () {
-                // Perform the delete action by navigating to the delete URL
+
                 window.location.href = deleteUrl;
             }
         });
