@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib import messages
-
+from .forms import CustomUserCreationForm
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -10,7 +10,14 @@ from django.contrib.auth import views as auth_views
 from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.views import generic
+from django.shortcuts import render, redirect
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
 
+from django.contrib.auth.models import User
 
 
 def send_email_view(request):
@@ -35,7 +42,7 @@ def is_staffteam_or_admin(user):
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
@@ -44,7 +51,7 @@ def signup(request):
         else:
             messages.error(request, 'There was a problem creating your account. Please check the form and try again.')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
 def login_view(request):

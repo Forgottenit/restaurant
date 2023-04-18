@@ -4,6 +4,7 @@ from .models import Reservation
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import user_passes_test
+from django.core.mail import send_mail
 
 
 def is_staffteam_or_admin(user):
@@ -19,6 +20,27 @@ def reservations(request):
             reservation = form.save(commit=False)
             reservation.user = request.user
             reservation.save()
+
+            # Sending booking details to the client via email
+            message = f"User: {reservation.user}\n"
+            message += f"Booking date: {reservation.date}\n"
+            message += f"Booking time: {reservation.time}\n"
+            # Add any other relevant booking details
+
+            print(f"Sending email to: {request.user.email}") # Print the user's email
+
+            try:
+                send_mail(
+                    'New Booking', # Subject
+                    message, # Message
+                    'ourrestaurantproject2@gmail.com', # From email
+                    [request.user.email], # To email (client's email)
+                    fail_silently=False,
+                )
+                print("Email sent successfully!") # Print a success message if the email is sent
+            except Exception as e:
+                print(f"Failed to send email: {e}") # Print the exception if email sending fails
+
             return redirect('user_reservations')
         else:
             form_errors = form.errors.as_json()
