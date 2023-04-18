@@ -20,6 +20,9 @@ def send_email_view(request):
         )
         print("Email sent successfully.")
         return JsonResponse({"status": "Email sent successfully"})
+    except Exception as e:
+        print(str(e))
+        return JsonResponse({"status": "Email sending failed."})
 
 def is_staffteam_or_admin(user):
     return user.groups.filter(name='StaffTeam').exists() or user.is_superuser
