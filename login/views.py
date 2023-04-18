@@ -6,6 +6,12 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django.contrib.auth import views as auth_views
+from django.core.mail import send_mail
+from django.urls import reverse_lazy
+from django.views import generic
+
+
 
 def send_email_view(request):
     print("Sending email...")
