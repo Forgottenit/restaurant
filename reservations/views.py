@@ -12,6 +12,37 @@ def is_staffteam_or_admin(user):
     return user.groups.filter(name='StaffTeam').exists() or user.is_superuser
 
 
+def send_reservation_email(user, reservation, subject):
+    plain_text_message = f"Hi {reservation.user},\n\n"
+    plain_text_message += f"Here is your booking:\n"
+    plain_text_message += f"Booking Ref: {reservation.id}\n"
+    plain_text_message += f"Date: {reservation.date}\n"
+    plain_text_message += f"Time: {reservation.time}\n"
+    plain_text_message += f"Special Requests: {reservation.special_requests or 'N/A'}\n"
+    plain_text_message += f"Party Size: {reservation.party_size}\n"
+    plain_text_message += f"\nLooking forward to seeing you then!\n\n"
+    plain_text_message += f"Phone: +353 1 234 5678\n"
+    plain_text_message += f"Email: ourrestaurantproject2@gmail.com\n"
+    plain_text_message += f"Address: 123 Phoenix Park, Dublin, Ireland\n"
+
+    html_message = render_to_string('booking_email.html', {
+        'user': reservation.user,
+        'reservation': reservation
+    })
+
+    try:
+        send_mail(
+            subject,
+            plain_text_message,
+            'ourrestaurantproject2@gmail.com',
+            [user.email],
+            fail_silently=False,
+            html_message=html_message
+        )
+    except Exception as e:
+        print(f"Failed to send email: {e}")
+
+
 @login_required
 def reservations(request):
 
@@ -24,35 +55,8 @@ def reservations(request):
             reservation.save()
 
             # Sending booking details to the client via email
-            plain_text_message = f"Hi {reservation.user},\n\n"
-            plain_text_message += f"Here is your booking:\n"
-            plain_text_message += f"Booking Ref: {reservation.id}\n"
-            plain_text_message += f"Date: {reservation.date}\n"
-            plain_text_message += f"Time: {reservation.time}\n"
-            plain_text_message += f"Special Requests: {reservation.special_requests or 'N/A'}\n"
-            plain_text_message += f"Party Size: {reservation.party_size}\n"
-            plain_text_message += f"\nLooking forward to seeing you then!\n\n"
-            plain_text_message += f"Phone: +353 1 234 5678\n"
-            plain_text_message += f"Email: ourrestaurantproject2@gmail.com\n"
-            plain_text_message += f"Address: 123 Phoenix Park, Dublin, Ireland\n"
-
-            html_message = render_to_string('booking_email.html', {
-                'user': reservation.user,
-                'reservation': reservation
-            })
-
-            try:
-                send_mail(
-                    'New Booking',
-                    plain_text_message,
-                    'ourrestaurantproject2@gmail.com',
-                    [request.user.email],
-                    fail_silently=False,
-                    html_message=html_message   # HTML message
-                )
-            except Exception as e:
-                print(f"Failed to send email: {e}")
-
+            if not is_staffteam_or_admin(request.user):
+                send_reservation_email(request.user, reservation, 'New Booking')
             return redirect('user_reservations')
         else:
             form_errors = form.errors.as_json()
@@ -81,7 +85,6 @@ def delete_reservation(request, reservation_id):
 
 @login_required
 def edit_reservation(request, reservation_id):
-
     reservation = get_object_or_404(Reservation, id=reservation_id)
     if not (reservation.user == request.user or is_staffteam_or_admin(request.user)):
         raise PermissionDenied
@@ -91,6 +94,10 @@ def edit_reservation(request, reservation_id):
         form = BookingForm(request.POST, instance=reservation, user=request.user)
         if form.is_valid():
             form.save()
+
+            # Sending edited booking details to the client via email
+            if not is_staffteam_or_admin(request.user):
+                send_reservation_email(request.user, reservation, 'Booking Update')
             if is_staffteam_or_admin(request.user):
                 return redirect('all_reservations')
             else:
