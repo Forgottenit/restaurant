@@ -1,32 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout
-from django.http import JsonResponse
 from .forms import CustomUserCreationForm
-from django.core.mail import send_mail
 from django.contrib.auth.forms import AuthenticationForm
 
 
 def is_staffteam_or_admin(user):
     return user.groups.filter(name='StaffTeam').exists() or user.is_superuser
-
-
-def send_email_view(request):
-    print("Sending email...")
-
-    try:
-        send_mail(
-            'Test Subject',
-            'Test message',
-            'ourrestaurantproject2@gmail.com',  # sender email
-            ['forgottenit2@gmail.com'],  # recipient email(s)
-            fail_silently=False,
-        )
-        print("Email sent successfully.")
-        return JsonResponse({"status": "Email sent successfully"})
-    except Exception as e:
-        print(str(e))
-        return JsonResponse({"status": "Email sending failed."})
 
 
 def signup(request):

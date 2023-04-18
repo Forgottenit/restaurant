@@ -40,7 +40,7 @@ class BookingForm(forms.ModelForm):
     # Max booking capacity for each booking set to 6
     party_size = forms.IntegerField(min_value=1, max_value=6, help_text="Enter the number of guests (1 to 6).")
 
-    # Add a MinValueValidator to date field to ensure the selected date is not in the past
+    # MinValueValidator to date field to ensure the selected date is not in the past
     date = forms.DateField(
         widget=DateInput(attrs={'type': 'date'}),
         validators=[
@@ -75,9 +75,7 @@ class BookingForm(forms.ModelForm):
     time and at set intervals
     """
     def guests_during_booking(self, reservations, interval_start, interval_end):
-        print("Reservations: ", reservations)
-        print("Interval Start: ", interval_start)
-        print("Interval End: ", interval_end)
+
         total_guests = sum(
             reservation.party_size
             for reservation in reservations
@@ -91,7 +89,7 @@ class BookingForm(forms.ModelForm):
                 )
             ) < interval_end and (reservation_start + BOOKING_DURATION > interval_start)
         )
-        print("Total Guests: ", total_guests)
+
         return total_guests
 
     # Main validation function for the form
@@ -142,7 +140,6 @@ class BookingForm(forms.ModelForm):
                 ]
 
                 if all(capacity >= cleaned_data['party_size'] for capacity in available_capacity):
-                    print(available_capacity)
                     return cleaned_data
 
                 else:
@@ -150,6 +147,5 @@ class BookingForm(forms.ModelForm):
                     error_message = f"Booking not available. Maximum available capacity at this time is {min_available_capacity}."
                     self.add_error('party_size', ValidationError(error_message))
 
-            # cleaned_data['error_message'] = error_message
 
         return cleaned_data
