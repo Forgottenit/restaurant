@@ -32,7 +32,7 @@ def login_view(request):
             messages.success(request, 'You are now logged in.')
 
             if is_staffteam_or_admin(request.user):
-                return redirect('staff_menu')
+                return redirect('all_reservations')
             else:
                 return redirect('reservations')
     else:

@@ -8,21 +8,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link{% if request.resolver_match.url_name == 'index' %} active{% endif %}"
-                            href="{% url 'index' %}">Home</a>
+                    <li class="nav-item"><a
+                            class="nav-link{% if request.resolver_match.url_name == 'reservations'  %} active{% endif %}"
+                            href="{% url 'all_reservations' %}">Reservations</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link{% if request.resolver_match.url_name == 'menu' %} active{% endif %}"
                             href="{% url 'staff_menu' %}">Menu</a>
                     </li>
-
-                    <li class="nav-item">
-
-
-                        <a class="nav-link{% if request.resolver_match.url_name == 'reservations'  %} active{% endif %}"
-                            href="{% url 'all_reservations' %}">Reservations</a></li>
 
 
                 </ul>
@@ -42,6 +35,7 @@
             </div>
         </div>
     </nav>
+    <!-- So Log in button in top corner logs in when on login page url -->
     {% if request.resolver_match.url_name == 'login' %}
     <script>
         document.getElementById('nav-login-btn-id').addEventListener('click', function (event) {
