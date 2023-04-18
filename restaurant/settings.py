@@ -24,6 +24,7 @@ mimetypes.add_type("application/javascript", ".js", True)
 
 if os.path.isfile("env.py"):
     import env
+
 # Log off after 30 mins of inactivity
 SESSION_COOKIE_AGE = 30 * 60
 
@@ -34,7 +35,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
-
+# Google maps key
 GOOGLE_MAPS_KEY = os.getenv("GOOGLE_MAPS_KEY")
 
 

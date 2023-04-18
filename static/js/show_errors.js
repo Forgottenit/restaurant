@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         showModal({
-            title: "Error",
+            title: "Sorry...",
             body: errorMessages,
             actionText: "OK",
             actionClass: "btn-secondary",
