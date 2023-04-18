@@ -1,17 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
-from django.http import HttpResponseNotFound, HttpResponseForbidden
-import os
-from django.conf import settings
 from menu.models import MenuItem, MenuCategory
-from django.shortcuts import render
 from reservations.models import Reservation
-from datetime import date
+from datetime import date, timedelta
 from django.utils import timezone
-from datetime import timedelta
-from django.core.exceptions import PermissionDenied
-from django.contrib.auth.decorators import user_passes_test
-from reservations.forms import BookingForm
 from django.db.models import Prefetch
 
 
@@ -56,4 +48,3 @@ def all_reservations(request):
         'past_reservations': past_reservations,
     }
     return render(request, 'staff_templates/all_reservations.html', context)
-

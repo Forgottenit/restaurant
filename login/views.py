@@ -1,23 +1,14 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login, logout
 from django.contrib import messages
+from django.contrib.auth import login, logout
+from django.http import JsonResponse
 from .forms import CustomUserCreationForm
 from django.core.mail import send_mail
-from django.http import HttpResponse
-from django.http import JsonResponse
-from django.contrib.auth import views as auth_views
-from django.core.mail import send_mail
-from django.urls import reverse_lazy
-from django.views import generic
-from django.shortcuts import render, redirect
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.http import urlsafe_base64_encode
-from django.utils.encoding import force_bytes
-from django.template.loader import render_to_string
-from django.core.mail import send_mail
+from django.contrib.auth.forms import AuthenticationForm
 
-from django.contrib.auth.models import User
+
+def is_staffteam_or_admin(user):
+    return user.groups.filter(name='StaffTeam').exists() or user.is_superuser
 
 
 def send_email_view(request):
@@ -37,8 +28,6 @@ def send_email_view(request):
         print(str(e))
         return JsonResponse({"status": "Email sending failed."})
 
-def is_staffteam_or_admin(user):
-    return user.groups.filter(name='StaffTeam').exists() or user.is_superuser
 
 def signup(request):
     if request.method == 'POST':
@@ -54,13 +43,14 @@ def signup(request):
         form = CustomUserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
+
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             login(request, form.get_user())
             messages.success(request, 'You are now logged in.')
-            
+
             if is_staffteam_or_admin(request.user):
                 return redirect('staff_menu')
             else:
@@ -68,6 +58,7 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
+
 
 def logout_view(request):
     logout(request)

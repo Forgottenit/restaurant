@@ -3,6 +3,7 @@ from .models import MenuItem, MenuCategory
 from .forms import MenuItemForm
 from django.contrib.auth.decorators import user_passes_test
 
+
 def is_staffteam_or_admin(user):
     return user.groups.filter(name='StaffTeam').exists() or user.is_superuser
 
@@ -11,6 +12,7 @@ def menu(request):
     items = MenuItem.objects.all()
     categories = MenuCategory.objects.all()
     return render(request, 'menu.html', {'items': items, 'categories': categories})
+
 
 @user_passes_test(is_staffteam_or_admin)
 def edit_menu_item(request, menu_item_id):
@@ -25,11 +27,13 @@ def edit_menu_item(request, menu_item_id):
 
     return render(request, 'staff_templates/edit_menu_item.html', {'form': form})
 
+
 @user_passes_test(is_staffteam_or_admin)
 def delete_menu_item(request, menu_item_id):
     item = get_object_or_404(MenuItem, pk=menu_item_id)
     item.delete()
     return redirect('staff_menu')
+
 
 @user_passes_test(is_staffteam_or_admin)
 def create_menu_item(request):

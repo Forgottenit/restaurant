@@ -21,6 +21,7 @@ class MenuCategory(models.Model):
     def __str__(self):
         return self.name
 
+
 class MenuItem(models.Model):
     category = models.ForeignKey(MenuCategory, on_delete=models.CASCADE, default=None, blank=False, null=False, help_text="Select the category of the menu item")
     name = models.CharField(max_length=50, blank=False, null=False, help_text="Enter the name of the menu item")
@@ -29,4 +30,3 @@ class MenuItem(models.Model):
 
     def __str__(self):
         return self.name
-

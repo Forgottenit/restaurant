@@ -3,6 +3,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+
 class Reservation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
     PENDING = 'Pending'
@@ -12,7 +13,7 @@ class Reservation(models.Model):
         (CONFIRMED, 'Confirmed'),
     ]
     name = models.CharField(max_length=30, blank=False, null=False, help_text="Enter your name")
-    email = models.EmailField(blank=False, null=False, help_text="Enter your email address")
+    email = models.EmailField(blank=False, null=False, help_text="We will email you your booking")
     date = models.DateField(blank=False, null=False)
     time = models.TimeField(blank=False, null=False)
     special_requests = models.TextField(blank=True, help_text="Enter any special requests (optional)")

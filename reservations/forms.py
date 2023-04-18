@@ -40,7 +40,7 @@ class BookingForm(forms.ModelForm):
     # Max booking capacity for each booking set to 6
     party_size = forms.IntegerField(min_value=1, max_value=6, help_text="Enter the number of guests (1 to 6).")
 
-     # Add a MinValueValidator to date field to ensure the selected date is not in the past
+    # Add a MinValueValidator to date field to ensure the selected date is not in the past
     date = forms.DateField(
         widget=DateInput(attrs={'type': 'date'}),
         validators=[
@@ -48,19 +48,18 @@ class BookingForm(forms.ModelForm):
         ], help_text="Select a date for your reservation."
     )
 
-    # FOR TESTING PURPOSES
-    # test_available_capacity = None
-
     # Display time options as DINNER_TIME_CHOICES as Radio buttons
     time = forms.ChoiceField(choices=DINNER_TIME_CHOICES, widget=RadioSelect, help_text="Choose a time for your reservation.")
-
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
 
+        if self.user is not None:
+            self.fields['email'].initial = self.user.email
+
         self.fields['name'].widget.attrs.update({'class': 'form-control custom-input'})
-        self.fields['email'].widget.attrs.update({'class': 'form-control custom-input'})
+        self.fields['email'].widget.attrs['readonly'] = True
         self.fields['date'].widget.attrs.update({'class': 'form-control custom-input'})
         self.fields['time'].widget.attrs.update({'class': 'custom-radio'})
         self.fields['special_requests'].widget.attrs.update({'class': 'form-control custom-textarea'})
@@ -116,7 +115,6 @@ class BookingForm(forms.ModelForm):
 
             # Check for reservations on date
             reservations_for_date = existing_reservations.filter(date=date)
-            
 
             # Check if user already has a booking on the chosen date
             if reservations_for_date.exists():

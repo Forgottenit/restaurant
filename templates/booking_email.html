@@ -1,0 +1,78 @@
+<html>
+
+<head>
+    <style>
+        .email-body {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .header {
+            background-color: #151715;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .booking-details {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .booking-details th,
+        .booking-details td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .booking-details th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .contact-details {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body class="email-body">
+    <div class="header">
+        <h1>Our Restaurant</h1>
+    </div>
+    <p>Hi {{ user }},</p>
+    <p>Here is your booking:</p>
+    <table class="booking-details">
+        <tr>
+            <th>Booking Ref</th>
+            <td>{{ reservation.id }}</td>
+        </tr>
+        <tr>
+            <th>Date</th>
+            <td>{{ reservation.date }}</td>
+        </tr>
+        <tr>
+            <th>Time</th>
+            <td>{{ reservation.time }}</td>
+        </tr>
+        <tr>
+            <th>Special Requests</th>
+            <td>{{ reservation.special_requests|default:'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Party Size</th>
+            <td>{{ reservation.party_size }}</td>
+        </tr>
+    </table>
+    <p>Looking forward to seeing you then!</p>
+    <div class="contact-details">
+        <p>Phone: +353 1 234 5678</p>
+        <p>Email: ourrestaurantproject2@gmail.com</p>
+        <p>Address: 123 Phoenix Park, Dublin, Ireland</p>
+    </div>
+</body>
+
+</html>

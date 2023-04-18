@@ -5,14 +5,16 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import user_passes_test
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 
 def is_staffteam_or_admin(user):
     return user.groups.filter(name='StaffTeam').exists() or user.is_superuser
 
+
 @login_required
 def reservations(request):
-    print(f"User CHECK IN VIEWS: {request.user}")
+
     form_errors = ""
     if request.method == 'POST':
         form = BookingForm(request.POST, user=request.user)
@@ -22,24 +24,34 @@ def reservations(request):
             reservation.save()
 
             # Sending booking details to the client via email
-            message = f"User: {reservation.user}\n"
-            message += f"Booking date: {reservation.date}\n"
-            message += f"Booking time: {reservation.time}\n"
-            # Add any other relevant booking details
+            plain_text_message = f"Hi {reservation.user},\n\n"
+            plain_text_message += f"Here is your booking:\n"
+            plain_text_message += f"Booking Ref: {reservation.id}\n"
+            plain_text_message += f"Date: {reservation.date}\n"
+            plain_text_message += f"Time: {reservation.time}\n"
+            plain_text_message += f"Special Requests: {reservation.special_requests or 'N/A'}\n"
+            plain_text_message += f"Party Size: {reservation.party_size}\n"
+            plain_text_message += f"\nLooking forward to seeing you then!\n\n"
+            plain_text_message += f"Phone: +353 1 234 5678\n"
+            plain_text_message += f"Email: ourrestaurantproject2@gmail.com\n"
+            plain_text_message += f"Address: 123 Phoenix Park, Dublin, Ireland\n"
 
-            print(f"Sending email to: {request.user.email}") # Print the user's email
+            html_message = render_to_string('booking_email.html', {
+                'user': reservation.user,
+                'reservation': reservation
+            })
 
             try:
                 send_mail(
-                    'New Booking', # Subject
-                    message, # Message
-                    'ourrestaurantproject2@gmail.com', # From email
-                    [request.user.email], # To email (client's email)
+                    'New Booking',
+                    plain_text_message,
+                    'ourrestaurantproject2@gmail.com',
+                    [request.user.email],
                     fail_silently=False,
+                    html_message=html_message   # HTML message
                 )
-                print("Email sent successfully!") # Print a success message if the email is sent
             except Exception as e:
-                print(f"Failed to send email: {e}") # Print the exception if email sending fails
+                print(f"Failed to send email: {e}")
 
             return redirect('user_reservations')
         else:
@@ -66,9 +78,10 @@ def delete_reservation(request, reservation_id):
     else:
         return redirect('user_reservations')
 
+
 @login_required
 def edit_reservation(request, reservation_id):
-    print(f"User CHECK IN EDIT: {request.user}")
+
     reservation = get_object_or_404(Reservation, id=reservation_id)
     if not (reservation.user == request.user or is_staffteam_or_admin(request.user)):
         raise PermissionDenied

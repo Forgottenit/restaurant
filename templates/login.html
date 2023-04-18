@@ -12,11 +12,6 @@
             {% csrf_token %}
             {{ form|crispy }}
 
-            <div class="password-reset-links">
-                <a href="{% url 'password_reset' %}" class="password-reset-link">Forgot Password?</a>
-                <a href="{% url 'password_change' %}" class="password-change-link">Change Password</a>
-            </div>
-
             <button class="btn  btn-responsive login-btn" type="submit">Login</button>
         </form>
 
