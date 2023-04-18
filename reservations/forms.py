@@ -38,7 +38,7 @@ DINNER_TIME_CHOICES = time_choices(17, 22, 15)
 class BookingForm(forms.ModelForm):
 
     # Max booking capacity for each booking set to 6
-    party_size = forms.IntegerField(min_value=1, max_value=6, help_text="Enter the number of guests (1 to 6).")
+    party_size = forms.IntegerField(min_value=1, max_value=6, help_text="Enter the number of guests (1 to 6).\n(For larger party's please call +353 1 234 5678)")
 
     # MinValueValidator to date field to ensure the selected date is not in the past
     date = forms.DateField(
