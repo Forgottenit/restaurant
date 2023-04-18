@@ -13,7 +13,7 @@ def send_email_view(request):
         'Test Subject',
         'Test message',
         'ourrestaurantproject2@gmail.com',  # sender email
-        ['recipient@example.com'],  # recipient email(s)
+        ['forgottenit2@gmail.com'],  # recipient email(s)
         fail_silently=False,
     )
     print("Email sent successfully.")
