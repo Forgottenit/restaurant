@@ -111,6 +111,20 @@ header {
     display: block;
 }
 
+.card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.link-card-body,
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 /* Media query for smaller screens */
 @media (max-width: 768px) {
     .title {
@@ -176,6 +190,7 @@ h2 {
     margin-bottom: 1.5rem;
 }
 
+.link-card-title,
 .card-title {
     font-size: 1.8rem;
 }
@@ -197,8 +212,12 @@ h2 {
 }
 
 .homepage-btn-primary {
-    background-color: #a66532;
+    background-color: #ce9569;
     border-color: #a66532;
+
+    margin: 0 auto;
+    margin-bottom: 1rem;
+
 }
 
 .homepage-btn-primary:hover,
@@ -206,6 +225,11 @@ h2 {
 .homepage-btn-primary:active {
     background-color: #8a5529;
     border-color: #8a5529;
+
+}
+
+.link-card-title {
+    margin: 1rem;
 }
 
 .card {
