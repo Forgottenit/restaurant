@@ -9,15 +9,17 @@ from django.http import JsonResponse
 
 def send_email_view(request):
     print("Sending email...")
-    send_mail(
-        'Test Subject',
-        'Test message',
-        'ourrestaurantproject2@gmail.com',  # sender email
-        ['forgottenit2@gmail.com'],  # recipient email(s)
-        fail_silently=False,
-    )
-    print("Email sent successfully.")
-    return JsonResponse({"status": "Email sent successfully"})
+
+    try:
+        send_mail(
+            'Test Subject',
+            'Test message',
+            'ourrestaurantproject2@gmail.com',  # sender email
+            ['forgottenit2@gmail.com'],  # recipient email(s)
+            fail_silently=False,
+        )
+        print("Email sent successfully.")
+        return JsonResponse({"status": "Email sent successfully"})
 
 def is_staffteam_or_admin(user):
     return user.groups.filter(name='StaffTeam').exists() or user.is_superuser
