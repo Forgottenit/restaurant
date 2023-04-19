@@ -3,7 +3,7 @@
 
 # [Our Restaurant](https://forgottenit-restaurant.herokuapp.com/)
 
-![Image description](media/am_i_responsive.png)
+![Rseponsive Design](media/am_i_responsive.png)
 
 ## Purpose of the Project
 
@@ -17,6 +17,7 @@ By implementing the features outlined in the user stories and ensuring data secu
 
 ## User Stories
 [Project](https://github.com/users/Forgottenit/projects/3/views/1)
+ - KANBAN BOARD
 
 #### Customers (Site User)
 
@@ -102,26 +103,100 @@ These packages and technologies work together to provide a comprehensive and fea
 
 ## Entities Relationship Diagram
 
+![ERD](media/erd.png)
+- Image Showing relationship between enitities on project
 
 
-## Design
-- google maps - api key in env.py 
-- help_text and headings using forms and models for styling consistant headings, errors and help_text
-# Log off after 30 mins of inactivity
-SESSION_COOKIE_AGE = 30 * 60
+## DESIGN IMAGES
 
-# Log off if browser closed
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+### HOME PAGE
 
-Login button on login page
-### Reservation Form
+#### Image Home page Large screen carousel
+![Carousel](media/carousel.png)  
 
-- Radio Tags, targeted by Javascript to stay coloured when selected
-- Custom error message using "inspect" to match Validation error if time selected is on the day of booking but earlier than the current time. Tested by adding time to Time_choices and ensuring error displayed.
-### Models
+#### Image Home page small screen carousel
+![Carousel](media/sm_carousel.png)  
 
-### Forms
-- Used min max numbers on forms party size so that users can not select unser 1 or over 6, this is also on the models validator but it adds an ease of use to the user having arrows to select party size
+#### Image Showing tiles on small screen
+![Award](media/sm_award.png)  
+
+#### Image Showing tiles on small screen
+![Tiles](media/tile_1_cascade.png)  
+
+#### Image Showing tiles on small screen
+![Tiles](media/tile_2_cascade.png)  
+
+#### Image Showing Map on Home page
+![Map](media/home_map.png)  
+
+#### Image Showing Map on Home page
+![Map](media/home_links.png)  
+
+### ABOUT PAGE
+
+#### Image Showing About Page
+![About](media/lg_about.png)  
+
+#### Image Showing About Page on small screen
+![About](media/sm_about.png)  
+
+### SIGN UP/ LOGIN
+
+#### Image Showing Sign Up page
+![Sign Up](media/sign_up.png)  
+
+#### Image Showing Sign Up page
+![Login](media/login.png)  
+
+### BOOKINGS
+
+#### Booking form
+![Booking](media/booking_form_top.png)  
+
+#### Booking form Calendar
+![Booking](media/booking_form_calendar.png)  
+
+#### Booking form Time
+![Booking](media/booking_form_time.png)  
+
+#### Booking date error
+![Booking](media/booking_date_error.png)  
+
+#### Booking date modal error
+![Booking](media/booking_date_modal_error.png)  
+
+#### Booking Modal
+![Booking](media/booking_modal.png)  
+
+### Booking Views
+
+#### Client Bookings
+![Booking](media/client_booking.png)  
+
+#### Client Bookings
+![Booking](media/client_booking_sm.png)  
+
+#### Confirm Deletion of Booking
+![Booking](media/cancel_modal.png)  
+
+### Staff Views
+
+#### Staff Menu
+![Staff Menu](media/staff_menu_closed.png)  
+
+#### Staff Menu
+![Staff Menu](media/staff_menu_open.png)  
+
+#### Edit Menu
+![Staff Menu](media/edit_menu.png)  
+
+#### Staff Reservations view
+![Staff Menu](media/reservations_closed.png)  
+
+#### Staff Reservations view
+![Staff Menu](media/future_reservations.png) 
+
+
 
 ## Testing
 
@@ -145,7 +220,20 @@ Login button on login page
     - To display the coverage report I ran
         - coverage report
 
-Coverage Report Results
+### Testing Overview
+
+This project includes a variety of tests to ensure its functionality and reliability. The following is a brief summary of some of these tests. Please note that this is not an exhaustive list of all tests in the project.
+
+1. **About View Test**: Tests the 'About' view by checking the status code and ensuring the correct template is used.
+2. **Error Template Test**: Verifies that the appropriate error messages are displayed for 404 and 403 errors.
+3. **Sign Up Test**: Confirms the sign-up process works correctly by checking the status code after a successful sign-up.
+4. **Authentication View Test**: Ensures that the login and logout views work as expected, including checking for proper redirects and user authentication.
+5. **Staff Authorization Test**: Verifies that the `is_staffteam_or_admin` function accurately identifies staff members and administrators.
+6. **Staff Menu Test**: Tests the staff menu view to ensure it displays menu items correctly.
+7. **All Reservations Test**: Checks the 'All Reservations' view to confirm that it displays reservations as expected.
+
+
+### Coverage Report Results
 
 Module | statements | missing | excluded | coverage
 -- | -- | -- | -- | --
@@ -383,6 +471,11 @@ For this Project a Template provided by CodeInstitute was used -[Template](https
 - Add the App name to ALLOWED_HOSTS
     - ALLOWED_HOSTS = ["forgottenit-restaurant.herokuapp.com", "localhost"]
 
+#### Some additional settings
+- SESSION_COOKIE_AGE = 30 * 60 To log user off after 30 minutes of inactivity
+
+- SESSION_EXPIRE_AT_BROWSER_CLOSE = True o log user off after Browser Close
+
 ### Top-level directories
 
 - Create media, static and templates folders in the top-level directory
@@ -398,6 +491,9 @@ For this Project a Template provided by CodeInstitute was used -[Template](https
       git commit -m “Commit Comment”
       git push
 
+### GitHub Deploment
+- Navigate to Project
+- To launch project type python3 manage.py runserver to launch on local host
 ### Heroku Deployment
 - In Heroku, on the app go to the Deploy section
 - Click GitHub  in the "Deployment method" section
@@ -471,44 +567,119 @@ The message div was then targeted to close after 2.5 Seconds using the set Timeo
  - Save Changes.
  - Note that Admin has all permissions, though if you are creating unique templates for staff, you could add the admin to the new group, or in views, check if user is "Group name or superuser", both options may have their advantages, but I chose to keep them separate. Also, permissions are additive, in that, if admin is added, it doesn't lose permissions that are not included in the new group, so Users could be members of multiple groups, i.e. Waiters, Chefs etc. in the case of this project. 
 
-### CREATE MENU CATEGORIES AND ITEMS
-FORM Also
-
-## Technology used
-
-1. GitPod for writing the code
-2. Python as the programming language
-3. Heroku for deployment
-4. Code Instistute Terminal for displaying finished product
-5. https://pep8ci.herokuapp.com/ CI Python Linter for testing code
-6. # DJANGO, CLOUDINARY, ElephantSQL....CRISPY FORMS JQuery, Google Fonts, FontAwesome
-
-## Imports used from Python Library
 
 
+# Validation
 
-## Constraints
+This document outlines the process of validating the code in a Django project using Black for Python, online JSHint for JavaScript, and W3C for HTML and CSS.
+
+## Table of Contents
+
+1. [Python Validation (Black)](#python-validation-black)
+2. [JavaScript Validation (Online JSHint)](#javascript-validation-online-jshint)
+3. [HTML Validation (W3C)](#html-validation-w3c)
+4. [CSS Validation (W3C)](#css-validation-w3c)
+5. Lighthouse
+
+## Python Validation (Black)
+
+To use Black for validation, follow these steps:
+
+1. Install the `black` package: pip install black
+2. Run `black` on your Python files:
+3. Review the changes made by `black` and fix any issues if needed.
+4. All issues addressed.
+
+## JavaScript Validation (Online JSHint)
+
+JSHint is a tool that helps detect errors and potential problems in your JavaScript code. To use the online JSHint validator, follow these steps:
+
+1. Visit the [JSHint Online Validator](https://jshint.com/).
+
+2. Copy and paste your JavaScript code into the input area.
+
+3. Click the "Lint" button to start the validation process.
+
+4. Review the validation results and fix any issues.
+
+5. All issues addressed.
+
+## HTML Validation (W3C)
+
+The W3C HTML validator checks the markup validity of HTML documents. To use the W3C HTML validator, follow these steps:
+
+1. Visit the [W3C Markup Validation Service](https://validator.w3.org/).
+
+2. Choose one of the following options to validate your HTML:
+
+   - Enter the URL of your web page
+   - Upload your HTML file
+   - Copy and paste your HTML code
+
+3. Review the validation results and fix any issues.
+
+4. No issues found.
+
+## CSS Validation (W3C)
+
+The W3C CSS validator checks the validity of CSS stylesheets. To use the W3C CSS validator, follow these steps:
+
+1. Visit the [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/).
+
+2. Choose one of the following options to validate your CSS:
+
+   - Enter the URL of your CSS file
+   - Upload your CSS file
+   - Copy and paste your CSS code
+
+3. Review the validation results and fix any issues.
+
+4. No issues found.
+
+---
+
+## Lighthouse
+![Lighthouse](media/lighthouse.png)
+- Lighthouse Score
+
+
+# Future Improvements
+
+The following is a list of potential enhancements and features that can be added to the project in the future:
+
+1. **Multiple Menus and Sittings**: Add support for different menus and sittings such as lunch, brunch, dinner, and special occasions. This will allow for more flexibility and customization of the reservation system.
+
+2. **Staff Rostering**: Implement a roster option in the staff view, enabling staff members to manage and assign shifts for other employees. This will improve workforce organization and scheduling.
+
+3. **Customer Reviews**: Integrate a review section where customers can leave feedback on their dining experience. This will help the restaurant gain valuable insights and improve its services.
+
+4. **Password Reset Functionality**: Provide an email-based password reset feature for users who have forgotten their login credentials. This will improve user experience and account security.
+
+5. **Takeaway and Delivery Service**: Expand the system to include takeaway and delivery options, allowing customers to place orders online for pickup or home delivery. This will increase revenue and customer convenience.
+
+6. **Integration with Third-Party Services**: Connect the platform with popular third-party services, such as Google Maps for location information, OpenTable for reservation management, and Stripe for payment processing. This will streamline various aspects of the restaurant's operations.
+
+7. **Analytics Dashboard**: Develop a comprehensive analytics dashboard that provides valuable insights into customer behavior, reservation patterns, and overall restaurant performance. This will help the restaurant make data-driven decisions for future improvements.
+
+8. **Mobile App**: Create a mobile app for iOS and Android devices to provide a seamless reservation experience for customers on-the-go. This will increase customer engagement and provide additional channels for reservations.
 
 
 
-# Learning and Future Improvements
+## Acknowledgements (Excluding requirements)
 
-## Learning
-
-collect static! 
-
-## Future improvements  
-
-
+### For coding help and advice
+Simen Daehlin
+Rohit Sharma
+CodeInstitiute
+Stack Overflow
 
 
-## Deployment
-<h3>GitPod<h3>
-
-
-<h3>Heroku</h3>
-
-
-## Acknowledgements 
-
- - Images [Dream Ai](https://dream.ai/)
+### For content and style
+https://ui.dev/amiresponsive? for README image
+CodeInstitute
+W3Schools.com
+pylessons.com
+Bootstrap
+Django
+https://stackoverflow.com/
+Lucid.app for ERD
