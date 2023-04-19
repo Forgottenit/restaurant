@@ -5,15 +5,97 @@
 
 ![Image description](media/am_i_responsive.png)
 
-## Purpose of the project
+## Purpose of the Project
+
+The main purpose of this project is to create a website for a fictional restaurant (Our Restaurant) that effectively showcases the restaurant's offerings and provides a nice user experience for both customers and staff. The website is designed to be visually appealing and responsive on different devices, ensuring a pleasant browsing experience for all users.
+
+The project leverages databases to store and manage information related to reservations and menu items, enabling robust CRUD (Create, Read, Update, and Delete) functionality. This allows customers to make, view, edit, and cancel reservations, as well as view the latest menu items. Staff, on the other hand, can efficiently handle bookings, update menu items, and manage restaurant-related data.
+
+By implementing the features outlined in the user stories and ensuring data security and privacy, this project aims to create a comprehensive and user-friendly platform that serves the needs of both customers and staff, ultimately enhancing the overall experience associated with the restaurant.
 
 
 
 ## User Stories
+[Project](https://github.com/users/Forgottenit/projects/3/views/1)
 
+#### Customers (Site User)
 
+- As a Site User, I want to be able to view the site so that I can learn about the restaurant.
+- As a Site User, I want to view the menu so that I can decide what to order.
+- As a Site User, I want to see the restaurant's location so that I can plan my visit.
+- As a Site User, I want the site to be visually appealing and responsive on different devices to ensure a pleasant browsing experience.
+- As a Site User, I want to make reservations so that I can secure a table for my desired time.
+- As a Site User, I want to view, edit, and delete my reservations to manage my bookings.
+- As a Site User, I want to receive feedback about my reservations, such as confirmation or cancellation notices.
+- As a Site User, I want my reservation data to be secure and not accessible by other users for privacy reasons.
+
+#### Staff (Site Owner)
+
+- As a Site Owner, I want to be able to handle bookings efficiently to manage the restaurant's reservations.
+- As a Site Owner, I want to inform users about overbookings to maintain customer satisfaction.
+- As a Site Owner, I want to have defensive forms that prevent incorrect or inappropriate data entry.
+- As a Site Owner, I want to be able to add, edit, and delete forms to manage restaurant-related data.
+- As a Site Owner, I want to be able to add, edit, and delete menu items so that I can keep the menu updated.
+- As a Site Owner, I want the updated menu items to be displayed on the site so that customers can see the latest offerings.
 
 ## Functionality
+
+The Restaurant project is designed to address the user stories of both customers (site users) and staff (site owners). Various technologies and packages are used to create a user-friendly and feature-rich web application, which help achieve the desired functionalities.
+
+### Customers (Site User)
+
+* **View the site and learn about the restaurant**: Django, a Python web framework, is used to build the site structure and create templates for displaying content. The site is broken down into Home, About, Menu and Reservations.
+* **View the menu**: The menu items are stored in a database and displayed on the site using Django templates.
+* **See the restaurant's location**: Google Maps API is integrated into the site to display the restaurant's location.
+* **Visually appealing and responsive site**: Bootstrap and CSS are used to create a responsive, uniques and visually appealing layout, which works well on different devices. Site templates and functioinality according to screen size, with some text and images on smaller screens to make the view less cluttered, notably, images on the carousel on the home page, navigation bar styling ("hamburger" button on smaller screens), text hidden on the about section and table layout of bookings on smaller screens changes to a horizontal view, using data labels to signify headings from the larger table. 
+* **Make, view, edit, and delete reservations**: Django forms and views are used to handle the creation, modification, and deletion of reservations. The reservation data is stored in a database, sqlite on development and ElephantSQL on production versions, and utilizes CRUD (Create, Read, Update and Delete) operations. Bookings are offered at 15 minute intervals using radio buttons on the reservation form. Helper text is utilised to explain the fields, and descriptions, such as advising the customer to ring the Restaurant if the party size is greater than 6, with a fictional phone number, added to create realism. Warning signs are displayed using a custom modal if errors occur, or if capacity reached at the requested time. If the party size requested is larger than available capacity, the available capacity is displayed to the user. Once bookings are completed or if they have a preexisting booking, the user Navigation bar displays a "My reservations" section, which displays the user bookings in a table format, that is displayed differently dependent on device size. Here the user can edit or delete their booking. Editing bringing them back to a form submission, and deletion displaying a confirmation modal to prevent accidental deletion. Also, users are prevented from "Double Booking" on a day, on purpose as a way of bypassing party size and by accident, if they have entered an incorrect date. If it is attempted, the form is not submitted and the user is shown a modal that displays the fact they already have a booking on that day. 
+* **Receive feedback about reservations**: Sendgrid-django package is used to send email confirmations and notifications regarding reservations. The email is sent in HTML as a stylised version and text, this is to account for users that may not have the technology to view the email in the HTML format. The email is sent for confirmed bookings, and if the booking is edited a new email is sent with the new booking.
+* **Secure reservation data**: Django's built-in authentication system ensures that user reservation data is secure and not accessible by other users. Custom Error handlers are utiliesd to display the error if a User attempts to view another users data. 
+
+### Staff (Site Owner)
+
+- **Handle bookings efficiently**: The Django admin interface is customized to allow site owners to manage reservations easily. Data is stored in sqlite in development and ElephantSQL for production. Django views are used to manipulate the data. 
+- **Inform users about overbookings**: Reservation logic checks for overbookings and displays appropriate error messages to users. Capacity is set to 50 customers at a time. Each booking is set to last for 1 hour. As bookings are not set to hourly sittings i.e. 5pm-6pm, 6pm-7pm etc. capacity has to be taken into account for the duration of bookings. For example, if the restaurant was at capacity from 5.30pm to 6.30pm, a user should not be able to book at 5.15pm as the capacity would be exceeded once the users come at 5.30pm. Due to this, when making a booking, capacity is checked for the duration of the booking, i.e. 5.15pm, 5.45pm, 6pm etc. as to prevent a user causing an over capacity situation. This depends on party size, start of bookings, order of bookings (i.e. the time the booking was created, not the time the booking was for, with the booking created earliest getting the booking, not the booking for the earliest time slot), If users exceed capacity for their booking they are informed, also, if the booking was for say, 3 people and capacity remaining was 2, they are displayed the remaining capacity as they may wish to ammend their booking to a smaller party size. 
+- **Defensive forms**: Django forms are used to validate and clean user input, preventing incorrect or inappropriate data entry. Forms also use validators, such as min max values to ensure this and to aid the user. For example, on party size the user is able to scroll up and down the party size but it is limited to a minimum of 1 and maximum of 6. User status also plays a part, with Admin or Staff decorators created so staff or Admin are able to view the bookings, edit or delete them. This was acheived by creating a super user and also a group called staff, that was given certain privledges. It was a design choice to not add super user (Admin) to the staff group, as they already have the privledges. Also, ny keeping them separate it would allow for clearer and easier customisation in the future, i.e. templates for only staff and templates for only admin etc.
+- **Add, edit, and delete forms and menu items**: Django admin interface is utilized to manage forms and menu items, with CRUD operations supported for both. Other than the functions mentioned in the Site User functionality, Staff and admin are also able to manipulate the menu items. When a staff or Admin logs in, they are shown a different navigation bar and templates than a regular user. The template for bookings opens first, with the display for "Todays" bookings displayed first, with two sections, one for future, and one for past bookings. The Future bookings are then broken down by month, to ease navigation, and an add reservation button is displayed on the page. From here, staff and admin are able to view edit and delete all bookings, this is for example, to be used if a booking was made over the phone or cancelled over the phone etc. or if bookings needed to be edited etc. The other template unique to staff is the menu, which is broken down by category, then each item is then editable or deletable. Editing the item leads to a form, designed to display each section clearly, with validation incorporated, so, for example, Categories (Sides, Desserts etc.) are displayed in a drop down menu. There is also an add item option, that displays the form. These changes are then rendered on the HTML for regular users or non users. 
+
+These functionalities, achieved through the use of various technologies and packages, ensure that the Restaurant project caters to the needs of both site users and site owners, addressing their respective user stories. Key components include:
+
+- **Django**: A web framework that serves as the base of the project, enabling efficient, faster development of the website and its features. Utilising it's models and form attributes and also it's login and database structures to aid development.
+- **Bootstrap**: A responsive front-end framework that adds to the websites visual appwal and adapts to different devices, utilising its comprehensive library.
+- **sendgrid-django**: A package that integrates SendGrid with Django, allowing for easy email handling and notifications related to reservations, with Site User emailed confirmation of created and edited reservations in both a HTML and text format, so the email is visible on different technologies.
+- **Cloudinary**: A cloud-based image and video management platform used for storing and serving media and static files, such as menu item images, css etc. This is due to the ephemeral nature of the Hosting application, Heroku.
+- **Heroku**: A cloud platform that enables easy deployment and hosting of the web application.
+- **Google Maps**: An API used to display the restaurant's location and provide easily accessible directions for customers. The location, due to the fictitious nature of the project, was set to a famous popular park in Dublin City, Ireland.
+- **Dream AI**: A package used for generating realistic images for the project.
+
+
+Additional packages and dependencies used in the project include:
+
+- asgiref
+- cloudinary==1.32.0
+- crispy-bootstrap5
+- dj-database-url
+- dj3-cloudinary-storage
+- Django==3.2.18
+- django-allauth
+- django-cloudinary-storage
+- django-crispy-forms
+- gunicorn
+- oauthlib
+- psycopg2
+- PyJWT
+- python-dotenv
+- python-http-client
+- python3-openid
+- pytz
+- requests-oauthlib
+- sendgrid==3.6.5
+- social-auth-app-django
+- social-auth-core
+- sqlparse
+
+These packages and technologies work together to provide a comprehensive and feature-rich experience for both customers and staff, enabling efficient management of reservations, menu items, and other restaurant-related data.
 
 
 
@@ -146,15 +228,23 @@ staff/views.py | 29 | 0 | 0 | 100%
 Total | 827 | 66 | 0 | 92%
 
 
-### MANUAL TESTS
- - DATABASE issue - Make migrations to both databases, debug = TRUE sqlite, otherwise postgres
- - TESTED filling special requests all the way across
- - TESTED errors and displays for errors
- - TESTED links, added if statements to check if user logged in or not
- - FontAwsome installed in new link as would not work in preinstalled version
- - TIMEZONE ISSUES
- - TESTED CAPACITY, created test booking at set time, i.e. 1pm on 20th April for 48 people, tested they couldn't make another booking themselves that day. Tested another user trying to make a booking at 1pm for 3 people ( This would exceed capacity as capacity is set at 50 people.) Displayed correct error. Also, each booking has a set duration of 1hr. So tested that bookings that would lead to excess capacity were also checked. i.e. If a booking was made at 12.45pm for 3 people, this would also exceed capacity as when the 48 people who had already booked for 1pm came in, capacity would be exceeded. So the latest booking preceeding the 48people at 1pm, would be 12pm, as booking durations are 1hr. Also tested bookings for 1.15pm -1.45pm for 3 people. These all exceeded bookings and displayed what capacity was available, like in the previous errors. Also checked at 2pm where capacity would be zero and booking was accepted. These cases were all tested for edited bookings also, i.e. if someone had a booking for 3pm that day, they couldn't edit it to a time where capacity would be exceeded. Finally, also checked that bookings for 1 or 2 people were accepted at all these times, where capacity would be reached but not exceeded and all worked correctly.
-- TESTED USERS can't access StaffTeam templates by inserting in address bar, likewise for User not viewing others bookings.
+### Manual Tests
+
+The following manual tests were conducted to ensure the proper functioning of the Restaurant project:
+
+- **Database**: Migrations were made to both SQLite (when `DEBUG = True`) and PostgreSQL databases. Tests were run on the SQLite as Django could not create and destroy/pull down instances in the PostgreSQL database on ElephantSQL due to the tier being used.  
+- **Special requests**: Filling the special requests field was tested manually.
+- **Error handling**: Errors and error displays were tested to ensure proper handling and messaging. HTML templates were created for Errors 403, 404 and 500, these were then simulated, by trying to access "Forbidden" requests, "Not Found" and for the 500 error, a link was created to simulate a 500 error and tested. 
+- **Links**: All links in the HTML were tested, including checks for user authentication and the appropriate display of content based on user login status. As Login Status and User status give different template views, these were all tested extensively.
+- **FontAwesome**: Installed a new link for FontAwesome, as it was not working with the preinstalled version.
+- **Timezone issues**: Timezone-related issues were identified and resolved.
+- **Capacity management**: A series of tests were performed to ensure that the reservation system properly handles capacity constraints. This included testing:
+  - Multiple bookings on the same day and overlapping times.
+  - Booking modifications that could lead to excess capacity.
+  - Accepting bookings when capacity is reached but not exceeded.
+- **Access control**: Tests were conducted to ensure that users cannot access unauthorized content, such as StaffTeam templates and other users' bookings, by manipulating the address bar.
+
+These manual tests helped to confirm the correct functioning of various features, including links, error handling, displays, defensiveness, ease of use, menu displays, and CRUD functionality for reservations and menu items.
 
 ## Initial Setup
 

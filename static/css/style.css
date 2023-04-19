@@ -513,6 +513,10 @@ h1 {
     border-color: #8a5529;
 }
 
+.last-card {
+    margin-bottom: 50px;
+}
+
 /* RADIO BUTTONS */
 .btn-radio {
     width: 30%;
