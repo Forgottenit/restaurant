@@ -106,6 +106,24 @@ These packages and technologies work together to provide a comprehensive and fea
 ![ERD](media/erd.png)
 - Image Showing relationship between enitities on project
 
+## Entity Relationships in the Project
+
+The project utilizes Entity Relationship Design to establish relationships between different models, such as Users, Bookings, Staff, and Menu. 
+
+- **User**: The User model is provided by Django's built-in `auth` framework. It handles user authentication and management, including user registration, login, and password handling.
+  - Each User can have multiple Bookings, representing a one-to-many relationship between User and Booking entities.
+
+- **Booking**: The Booking model represents a reservation made by a User. It stores information about the reservation, such as date, time, and party size.
+  - Each Booking is associated with a single User, establishing a many-to-one relationship between Booking and User entities.
+
+- **Staff**: The Staff model is an extension of the User model, designed to represent restaurant staff members such as waiters and managers.
+  - Staff members have additional permissions and access to specific views and actions within the application, such as managing reservations and menu items.
+
+- **Menu**: The Menu model represents the restaurant's menu, with different categories and items.
+  - The Menu is divided into categories (such as Appetizers, Main Courses, etc.), represented by the MenuCategory model. Each MenuCategory can have multiple MenuItems, forming a one-to-many relationship.
+  - The MenuItem model represents individual menu items, including their name, description, and price. Each MenuItem is associated with a single MenuCategory, creating a many-to-one relationship between MenuItem and MenuCategory entities.
+
+
 
 ## DESIGN IMAGES
 
