@@ -1,6 +1,7 @@
 from django.test import Client, TestCase
 from customers import views
 
+
 class ErrorHandlersTestCase(TestCase):
     def setUp(self):
         self.client = Client()
@@ -17,6 +18,7 @@ class ErrorHandlersTestCase(TestCase):
         response = self.client.get('/500/')
         self.assertEqual(response.status_code, 500)
 
+
 class IndexViewTestCase(TestCase):
     def setUp(self):
         self.client = Client()
@@ -26,6 +28,7 @@ class IndexViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
 
+
 class AboutViewTestCase(TestCase):
     def setUp(self):
         self.client = Client()
@@ -34,6 +37,7 @@ class AboutViewTestCase(TestCase):
         response = self.client.get('/about/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'about.html')
+
 
 class ErrorTemplateTestCase(TestCase):
     def setUp(self):

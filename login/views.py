@@ -15,10 +15,14 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, 'Account created successfully. You are now logged in.')
+            messages.success(request,
+                             ('Account created successfully. '
+                              'You are now logged in.'))
             return redirect('reservations')
         else:
-            messages.error(request, 'There was a problem creating your account. Please check the form and try again.')
+            messages.error(request,
+                           ('There was a problem creating your account. '
+                            'Please check the form and try again.'))
     else:
         form = CustomUserCreationForm()
     return render(request, 'signup.html', {'form': form})

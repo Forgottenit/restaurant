@@ -9,7 +9,9 @@ from decimal import Decimal
 class StaffMenuTestCase(TestCase):
     def setUp(self):
         self.client = Client()
-        self.category = MenuCategory.objects.create(name=MenuCategory.APPETIZERS)
+        self.category = MenuCategory.objects.create(
+            name=MenuCategory.APPETIZERS
+        )
         self.item = MenuItem.objects.create(
             category=self.category,
             name="Something",

@@ -7,6 +7,7 @@ from django.contrib.auth.models import User, Group
 TEST Menu models
 """
 
+
 # Test Menu Category
 class MenuCategoryTestCase(TestCase):
     def test_create_menu_category(self):
@@ -14,10 +15,12 @@ class MenuCategoryTestCase(TestCase):
         self.assertEqual(category.name, MenuCategory.APPETIZERS)
         self.assertEqual(str(category), MenuCategory.APPETIZERS)
 
+
 # Test Menu Item
 class MenuItemTestCase(TestCase):
     def setUp(self):
-        self.category = MenuCategory.objects.create(name=MenuCategory.APPETIZERS)
+        self.category = MenuCategory.objects.create(
+                                        name=MenuCategory.APPETIZERS)
 
     def test_create_menu_item(self):
         item = MenuItem.objects.create(
@@ -33,6 +36,7 @@ class MenuItemTestCase(TestCase):
         self.assertEqual(item.price, Decimal('12.99'))
         self.assertEqual(str(item), "Something")
 
+
 """
 TEST MENU views
 """
@@ -41,7 +45,8 @@ TEST MENU views
 class MenuViewTestCase(TestCase):
     def setUp(self):
         self.client = Client()
-        self.category = MenuCategory.objects.create(name=MenuCategory.APPETIZERS)
+        self.category = MenuCategory.objects.create(
+                                        name=MenuCategory.APPETIZERS)
         self.item = MenuItem.objects.create(
             category=self.category,
             name="Something",
@@ -58,7 +63,8 @@ class MenuViewTestCase(TestCase):
 class StaffMenuViewTestCase(TestCase):
     def setUp(self):
         self.client = Client()
-        self.category = MenuCategory.objects.create(name=MenuCategory.APPETIZERS)
+        self.category = MenuCategory.objects.create(
+                                    name=MenuCategory.APPETIZERS)
         self.item = MenuItem.objects.create(
             category=self.category,
             name="Something",

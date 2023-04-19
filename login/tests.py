@@ -8,7 +8,8 @@ from .forms import CustomUserCreationForm
 TEST LOGIN VIEWS
 """
 
-# Test sign up 
+
+# Test sign up
 class SignUpTestCase(TestCase):
     def setUp(self):
         self.client = Client()
@@ -28,10 +29,13 @@ class SignUpTestCase(TestCase):
 
 class AuthViewTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username='testuser', password='testpassword')
-        self.admin = User.objects.create_superuser(username='admin', password='adminpassword')
+        self.user = User.objects.create_user(username='testuser',
+                                             password='testpassword')
+        self.admin = User.objects.create_superuser(username='admin',
+                                                   password='adminpassword')
         self.staff_group = Group.objects.create(name='StaffTeam')
-        self.staff = User.objects.create_user(username='staff', password='staffpassword')
+        self.staff = User.objects.create_user(username='staff',
+                                              password='staffpassword')
         self.staff.groups.add(self.staff_group)
 
     # Test is_staffteam_or_admin works
@@ -43,12 +47,15 @@ class AuthViewTest(TestCase):
     def test_login_view(self):
 
         # Test login for a regular user
-        response = self.client.post('/login/', data={'username': 'testuser', 'password': 'testpassword'})
+        response = self.client.post('/login/', data={'username': 'testuser',
+                                    'password': 'testpassword'})
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/reservations/')
 
         # Test login for admin user
-        response = self.client.post('/login/', data={'username': 'admin', 'password': 'adminpassword'})
+        response = self.client.post('/login/',
+                                    data={'username': 'admin',
+                                          'password': 'adminpassword'})
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/all_reservations/')
 
