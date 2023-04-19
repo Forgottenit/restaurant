@@ -48,6 +48,100 @@ Login button on login page
  - Automated tests in the customer app also involved checking the response status codes for Index and About, that they returned 200(OK) when accessed and whether their respective templates were used. 
 
  - To run the tests I used python3 manage.py test __APP_NAME__ or python3 manage.py test to run all tests.
+
+
+ - To test coverage of Tests, I pip installed coverage.py
+    - pip install coverage
+
+    - Then ran tests and collected Coverage
+        - coverage run --source='.' manage.py test
+
+    - To display the coverage report I ran
+        - coverage report
+
+Coverage Report Results
+
+Module | statements | missing | excluded | coverage
+-- | -- | -- | -- | --
+customers/__init__.py | 0 | 0 | 0 | 100%
+customers/admin.py | 1 | 0 | 0 | 100%
+customers/apps.py | 4 | 0 | 0 | 100%
+customers/migrations/__init__.py | 0 | 0 | 0 | 100%
+customers/models.py | 1 | 0 | 0 | 100%
+customers/tests.py | 37 | 0 | 0 | 100%
+customers/urls.py | 7 | 0 | 0 | 100%
+customers/views.py | 23 | 3 | 0 | 87%
+env.py | 9 | 0 | 0 | 100%
+login/__init__.py | 0 | 0 | 0 | 100%
+login/admin.py | 1 | 0 | 0 | 100%
+login/apps.py | 4 | 0 | 0 | 100%
+login/forms.py | 8 | 0 | 0 | 100%
+login/migrations/__init__.py | 0 | 0 | 0 | 100%
+login/models.py | 1 | 0 | 0 | 100%
+login/tests.py | 34 | 0 | 0 | 100%
+login/urls.py | 3 | 0 | 0 | 100%
+login/views.py | 33 | 3 | 0 | 91%
+manage.py | 12 | 2 | 0 | 83%
+menu/__init__.py | 0 | 0 | 0 | 100%
+menu/admin.py | 4 | 0 | 0 | 100%
+menu/apps.py | 4 | 0 | 0 | 100%
+menu/forms.py | 6 | 0 | 0 | 100%
+menu/migrations/0001_initial.py | 5 | 0 | 0 | 100%
+menu/migrations/0002_rename_menuitems_menuitem.py | 4 | 0 | 0 | 100%
+menu/migrations/0003_auto_20230416_1555.py | 5 | 0 | 0 | 100%
+menu/migrations/0004_alter_menuitem_category.py | 5 | 0 | 0 | 100%
+menu/migrations/0005_alter_menucategory_name.py | 4 | 0 | 0 | 100%
+menu/migrations/0006_alter_menucategory_name.py | 4 | 0 | 0 | 100%
+menu/migrations/0007_auto_20230417_1547.py | 6 | 0 | 0 | 100%
+menu/migrations/__init__.py | 0 | 0 | 0 | 100%
+menu/models.py | 19 | 0 | 0 | 100%
+menu/tests.py | 50 | 0 | 0 | 100%
+menu/urls.py | 3 | 0 | 0 | 100%
+menu/views.py | 34 | 4 | 0 | 88%
+reservations/__init__.py | 0 | 0 | 0 | 100%
+reservations/admin.py | 3 | 0 | 0 | 100%
+reservations/apps.py | 4 | 0 | 0 | 100%
+reservations/forms.py | 71 | 4 | 0 | 94%
+reservations/migrations/0001_initial.py | 5 | 0 | 0 | 100%
+reservations/migrations/0002_author_book.py | 4 | 0 | 0 | 100%
+reservations/migrations/0003_auto_20230323_1448.py | 4 | 0 | 0 | 100%
+reservations/migrations/0004_auto_20230326_1532.py | 4 | 0 | 0 | 100%
+reservations/migrations/0005_auto_20230326_1548.py | 4 | 0 | 0 | 100%
+reservations/migrations/0006_auto_20230326_1549.py | 5 | 0 | 0 | 100%
+reservations/migrations/0007_auto_20230326_1600.py | 6 | 0 | 0 | 100%
+reservations/migrations/0008_reservation_status.py | 4 | 0 | 0 | 100%
+reservations/migrations/0009_reservation_created_on.py | 5 | 0 | 0 | 100%
+reservations/migrations/0010_alter_reservation_special_requests.py | 4 | 0 | 0 | 100%
+reservations/migrations/0011_reservation_user.py | 6 | 0 | 0 | 100%
+reservations/migrations/0012_alter_reservation_user.py | 6 | 0 | 0 | 100%
+reservations/migrations/0013_alter_reservation_created_on.py | 5 | 0 | 0 | 100%
+reservations/migrations/0014_alter_reservation_created_on.py | 4 | 0 | 0 | 100%
+reservations/migrations/0015_alter_reservation_name.py | 4 | 0 | 0 | 100%
+reservations/migrations/0016_auto_20230417_1547.py | 4 | 0 | 0 | 100%
+reservations/migrations/0017_alter_reservation_email.py | 4 | 0 | 0 | 100%
+reservations/migrations/0018_auto_20230418_2034.py | 4 | 0 | 0 | 100%
+reservations/migrations/__init__.py | 0 | 0 | 0 | 100%
+reservations/models.py | 15 | 1 | 0 | 93%
+reservations/tests.py | 102 | 3 | 0 | 97%
+reservations/urls.py | 3 | 0 | 0 | 100%
+reservations/views.py | 73 | 37 | 0 | 49%
+restaurant/__init__.py | 0 | 0 | 0 | 100%
+restaurant/asgi.py | 4 | 4 | 0 | 0%
+restaurant/settings.py | 60 | 1 | 0 | 98%
+restaurant/urls.py | 3 | 0 | 0 | 100%
+restaurant/wsgi.py | 4 | 4 | 0 | 0%
+staff/__init__.py | 0 | 0 | 0 | 100%
+staff/admin.py | 1 | 0 | 0 | 100%
+staff/apps.py | 4 | 0 | 0 | 100%
+staff/context_processors.py | 3 | 0 | 0 | 100%
+staff/migrations/__init__.py | 0 | 0 | 0 | 100%
+staff/models.py | 1 | 0 | 0 | 100%
+staff/tests.py | 31 | 0 | 0 | 100%
+staff/urls.py | 3 | 0 | 0 | 100%
+staff/views.py | 29 | 0 | 0 | 100%
+Total | 827 | 66 | 0 | 92%
+
+
 ### MANUAL TESTS
  - DATABASE issue - Make migrations to both databases, debug = TRUE sqlite, otherwise postgres
  - TESTED filling special requests all the way across
