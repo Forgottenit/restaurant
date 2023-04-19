@@ -1,6 +1,12 @@
 
 <h1>Welcome to Restaurant Website</h1>
 
+## Purpose of the project
+
+
+
+## User Stories
+
 
 
 ## Functionality
@@ -8,7 +14,7 @@
 
 
 
-## Flow Chart 
+## Entities Relationship Diagram
 
 
 
@@ -30,6 +36,27 @@ Login button on login page
 
 ### Forms
 - Used min max numbers on forms party size so that users can not select unser 1 or over 6, this is also on the models validator but it adds an ease of use to the user having arrows to select party size
+
+## Testing
+
+### AUTOMATED TESTS
+ - There was an issue originally when trying to run the automated tests as this project is using the free tier of ElephantSQL Django could not run tests on the postgres as to run tests it creates a Database which is not possible in this tier. To get around this and test the project I used the sqlite database. This involved ammending the settings with an "if 'test' in sys.argv:" condition to use sqlite, so if test was inputted in the command line such as python3 manage.py test, the database (db) was sqlite, then an else to reference the ElephantSQL database for everything else. Obviously the limitations of this were that the postgres db may act differently, but for the purpose of the tests involved, this seemed the best solution. Other attempts involved things such as functions and imports like from django.test.utils import override_settings, or "if os.environ.get('SQLITE_FOR_TEST') == 'True':" use sqlite else use postgres, then "export SQLITE_FOR_TEST=True" in the CLI, but then you had to use "unset SQLITE_FOR_TEST" in the CLI to revert back to postgres, where sqlite was only required for the tests I used the sys.argv method as it prevented using the wrong database for migrations etc. It involved using "import sys" at the top of the settings file.
+ 
+ - ERROR Handlers for Errors 403 (403 Forbidden error) 404 (404 Not Found error) and 500 (500 Internal Server Error) were created in the "customers" views.py. These errors then lead to the respective HTML files for each inside the "templates" folder. The tests tested the automated responses, and also for the views in customer, I also manually tested these views by simulating page not found, trying to access a booking of another user and using:
+    def simulate_500(request):
+        raise Exception("Something went wrong") to simulate a 500 response, then using "simulate-500" in the address bar and checking the template was as hoped for.
+ - Automated tests in the customer app also involved checking the response status codes for Index and About, that they returned 200(OK) when accessed and whether their respective templates were used. 
+
+ - To run the tests I used python3 manage.py test __APP_NAME__ or python3 manage.py test to run all tests.
+### MANUAL TESTS
+ - DATABASE issue - Make migrations to both databases, debug = TRUE sqlite, otherwise postgres
+ - TESTED filling special requests all the way across
+ - TESTED errors and displays for errors
+ - TESTED links, added if statements to check if user logged in or not
+ - FontAwsome installed in new link as would not work in preinstalled version
+ - TIMEZONE ISSUES
+ - TESTED CAPACITY, created test booking at set time, i.e. 1pm on 20th April for 48 people, tested they couldn't make another booking themselves that day. Tested another user trying to make a booking at 1pm for 3 people ( This would exceed capacity as capacity is set at 50 people.) Displayed correct error. Also, each booking has a set duration of 1hr. So tested that bookings that would lead to excess capacity were also checked. i.e. If a booking was made at 12.45pm for 3 people, this would also exceed capacity as when the 48 people who had already booked for 1pm came in, capacity would be exceeded. So the latest booking preceeding the 48people at 1pm, would be 12pm, as booking durations are 1hr. Also tested bookings for 1.15pm -1.45pm for 3 people. These all exceeded bookings and displayed what capacity was available, like in the previous errors. Also checked at 2pm where capacity would be zero and booking was accepted. These cases were all tested for edited bookings also, i.e. if someone had a booking for 3pm that day, they couldn't edit it to a time where capacity would be exceeded. Finally, also checked that bookings for 1 or 2 people were accepted at all these times, where capacity would be reached but not exceeded and all worked correctly.
+- TESTED USERS can't access StaffTeam templates by inserting in address bar, likewise for User not viewing others bookings.
 
 ## Initial Setup
 
@@ -271,26 +298,7 @@ FORM Also
 ## Imports used from Python Library
 
 
-## Testing
 
-### AUTOMATED TESTS
- - There was an issue originally when trying to run the automated tests as this project is using the free tier of ElephantSQL Django could not run tests on the postgres as to run tests it creates a Database which is not possible in this tier. To get around this and test the project I used the sqlite database. This involved ammending the settings with an "if 'test' in sys.argv:" condition to use sqlite, so if test was inputted in the command line such as python3 manage.py test, the database (db) was sqlite, then an else to reference the ElephantSQL database for everything else. Obviously the limitations of this were that the postgres db may act differently, but for the purpose of the tests involved, this seemed the best solution. Other attempts involved things such as functions and imports like from django.test.utils import override_settings, or "if os.environ.get('SQLITE_FOR_TEST') == 'True':" use sqlite else use postgres, then "export SQLITE_FOR_TEST=True" in the CLI, but then you had to use "unset SQLITE_FOR_TEST" in the CLI to revert back to postgres, where sqlite was only required for the tests I used the sys.argv method as it prevented using the wrong database for migrations etc. It involved using "import sys" at the top of the settings file.
- 
- - ERROR Handlers for Errors 403 (403 Forbidden error) 404 (404 Not Found error) and 500 (500 Internal Server Error) were created in the "customers" views.py. These errors then lead to the respective HTML files for each inside the "templates" folder. The tests tested the automated responses, and also for the views in customer, I also manually tested these views by simulating page not found, trying to access a booking of another user and using:
-    def simulate_500(request):
-        raise Exception("Something went wrong") to simulate a 500 response, then using "simulate-500" in the address bar and checking the template was as hoped for.
- - Automated tests in the customer app also involved checking the response status codes for Index and About, that they returned 200(OK) when accessed and whether their respective templates were used. 
-
- - To run the tests I used python3 manage.py test __APP_NAME__ or python3 manage.py test to run all tests.
-### MANUAL TESTS
- - DATABASE issue - Make migrations to both databases, debug = TRUE sqlite, otherwise postgres
- - TESTED filling special requests all the way across
- - TESTED errors and displays for errors
- - TESTED links, added if statements to check if user logged in or not
- - FontAwsome installed in new link as would not work in preinstalled version
- - TIMEZONE ISSUES
- - TESTED CAPACITY, created test booking at set time, i.e. 1pm on 20th April for 48 people, tested they couldn't make another booking themselves that day. Tested another user trying to make a booking at 1pm for 3 people ( This would exceed capacity as capacity is set at 50 people.) Displayed correct error. Also, each booking has a set duration of 1hr. So tested that bookings that would lead to excess capacity were also checked. i.e. If a booking was made at 12.45pm for 3 people, this would also exceed capacity as when the 48 people who had already booked for 1pm came in, capacity would be exceeded. So the latest booking preceeding the 48people at 1pm, would be 12pm, as booking durations are 1hr. Also tested bookings for 1.15pm -1.45pm for 3 people. These all exceeded bookings and displayed what capacity was available, like in the previous errors. Also checked at 2pm where capacity would be zero and booking was accepted. These cases were all tested for edited bookings also, i.e. if someone had a booking for 3pm that day, they couldn't edit it to a time where capacity would be exceeded. Finally, also checked that bookings for 1 or 2 people were accepted at all these times, where capacity would be reached but not exceeded and all worked correctly.
-- TESTED USERS can't access StaffTeam templates by inserting in address bar, likewise for User not viewing others bookings.
 ## Constraints
 
 
